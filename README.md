@@ -1,36 +1,72 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Dota Picker App
 
-## Getting Started
+Welcome to the Dota Picker App, a tool designed to enhance your drafting experience in Dota 2 ranked games.
 
-First, run the development server:
+## Overview
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+This app aims to revolutionize the drafting phase by offering several features:
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- **Prediction Algorithm:** Utilizes an advanced algorithm to suggest the best possible hero picks for your team based on the enemy lineup.
+- **Patch Comparison:** Compares hero stats between previous and current patches, aiding in predicting the meta shifts.
+- **Draft Assistance:** Assists in selecting heroes that complement your team's lineup and identifies heroes that counter the enemy lineup.
+- **Hero Details:** Offers comprehensive hero descriptions and details for informed decision-making during drafting.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## Features
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+### 1. Prediction Tool
+- Predicts optimal hero picks based on the enemy team's lineup.
+- Offers insights into potential team compositions and synergies.
 
-## Learn More
+### 2. Patch Analysis
+- Compares hero stats across patches to forecast meta changes.
+- Helps in understanding hero buffs, nerfs, and changes.
 
-To learn more about Next.js, take a look at the following resources:
+### 3. Draft Assistance
+- Provides recommendations for good and bad hero choices for your lineup.
+- Offers insights into countering the enemy lineup.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 4. Hero Description Page
+- Detailed information about each hero, including abilities, strengths, and weaknesses.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## API Usage
 
-## Deploy on Vercel
+This app leverages data from the following APIs:
+- [OpenDota API](https://www.opendota.com/api) for real-time Dota 2 game data.
+- [STRATZ API](https://www.stratz.com/) for additional insights and hero statistics.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## How to Use
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+To use the Dota Picker App:
+
+1. **Accessing the App:** Clone the repository and run the application locally or access it via [deployed link].
+2. **Selecting Heroes:** Explore hero details, compare stats, and use the prediction tool during the drafting phase.
+3. **Improving Gaming Experience:** Utilize the app's suggestions to enhance your drafting strategies and gameplay.
+
+## Contributing and Future Collaboration
+
+Contributions are welcome! If you'd like to contribute:
+- Fork the repository
+- Create a new branch
+- Make your enhancements
+- Submit a pull request
+
+If you find this project unfinished and I'm off taking a well-deserved break, feel free to jump in and help finish it. Let's make Dota drafting more fun and strategic together! 😄
+
+## Future Enhancements
+
+Future developments may include:
+- Enhanced prediction algorithm with machine learning
+- Integration with real-time game data
+- User accounts for personalized suggestions
+
+## Acknowledgments
+
+This app was created to help Dota players improve their drafting experience. Special thanks to [contributors/contributing communities] for their support and insights.
+
+## License
+
+This project is licensed under the [License Name] License - see the [LICENSE.md](LICENSE.md) file for details.
+
+## Contact
+
+For inquiries or suggestions, feel free to contact [Your Name] at [your@email.com].
