@@ -62,4 +62,5 @@ Future developments may include:
 ## Acknowledgments
 
 This app was created to help Dota players improve their drafting experience. Special thanks to myself for my support and insights.
+😄😄😄😄😄
 
