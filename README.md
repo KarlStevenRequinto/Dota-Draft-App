@@ -31,16 +31,16 @@ This app aims to revolutionize the drafting phase by offering several features:
 ## API Usage
 
 This app leverages data from the following APIs:
-- [OpenDota API](https://www.opendota.com/api) for real-time Dota 2 game data.
-- [STRATZ API](https://www.stratz.com/) for additional insights and hero statistics.
+- [OpenDota API](https://docs.opendota.com/) for real-time Dota 2 game data.
+- [STRATZ API](https://docs.stratz.com/index.html) for additional insights and hero statistics.
 
 ## How to Use
 
-To use the Dota Picker App:
+<!-- To use the Dota Picker App:
 
 1. **Accessing the App:** Clone the repository and run the application locally or access it via [deployed link].
 2. **Selecting Heroes:** Explore hero details, compare stats, and use the prediction tool during the drafting phase.
-3. **Improving Gaming Experience:** Utilize the app's suggestions to enhance your drafting strategies and gameplay.
+3. **Improving Gaming Experience:** Utilize the app's suggestions to enhance your drafting strategies and gameplay. -->
 
 ## Contributing and Future Collaboration
 
@@ -61,12 +61,5 @@ Future developments may include:
 
 ## Acknowledgments
 
-This app was created to help Dota players improve their drafting experience. Special thanks to [contributors/contributing communities] for their support and insights.
+This app was created to help Dota players improve their drafting experience. Special thanks to myself for my support and insights.
 
-## License
-
-This project is licensed under the [License Name] License - see the [LICENSE.md](LICENSE.md) file for details.
-
-## Contact
-
-For inquiries or suggestions, feel free to contact [Your Name] at [your@email.com].
