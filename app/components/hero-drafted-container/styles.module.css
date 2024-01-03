@@ -20,7 +20,6 @@
 }
 .draftColorContainer {
   height: 10px;
-  background: linear-gradient(to right, #286323, #7af03c);
   transition: transform 0.3s ease;
 }
 

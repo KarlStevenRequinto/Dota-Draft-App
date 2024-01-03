@@ -4,6 +4,11 @@
     "Fira Mono", "Droid Sans Mono", "Courier New", monospace;
 
   --locked-gray-01: rgb(87, 78, 78);
+  --green-01: #286323;
+  --green-02: #7af03c;
+  --red-01: #632323;
+  --red-02: #f03c3c;
+  --neutral-01:#828685;
 }
 
 * {
