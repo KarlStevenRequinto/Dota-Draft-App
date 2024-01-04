@@ -1,13 +1,40 @@
 .container {
   cursor: pointer;
+  position: relative;
 }
 
 .image {
-  width: 90px;
-  height: 50px;
+  width: 100%;
+  height: auto;
+  display: block;
   transition: transform 0.3s;
   transform: scale(1);
+
 }
-.image:hover {
+.container:hover .image {
   transform: scale(1.4);
+}
+
+.imageContainer {
+  width: 90px;
+  height: 50px;
+  position: relative;
+}
+.textContainer {
+  position: absolute;
+  bottom: -10.5px;
+  left: 50%;
+  text-align: center;
+  background-color: rgba(226, 226, 226, 0.308);
+  transform: translateX(-50%);
+  width: 126px;
+  text-align: center;
+  transition: opacity 0.2s;
+  opacity: 0;
+  box-sizing: border-box; 
+}
+
+.container:hover .textContainer {
+  opacity: 1;
+  
 }
