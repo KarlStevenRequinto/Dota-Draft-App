@@ -5,6 +5,11 @@ export default function Home() {
   return (
     <main className="main">
       <HeroUndraftedContainer/>
+      <HeroUndraftedContainer/>
+      <HeroUndraftedContainer/>
+      <HeroUndraftedContainer/>
+      <HeroUndraftedContainer/>
+      
     </main>
   )
 }

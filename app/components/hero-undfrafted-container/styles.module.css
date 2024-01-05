@@ -1,6 +1,7 @@
 .container {
   cursor: pointer;
   position: relative;
+  z-index: 1;
 }
 
 .image {
@@ -9,9 +10,12 @@
   display: block;
   transition: transform 0.3s;
   transform: scale(1);
-
+}
+.container:hover {
+  z-index: 2;
 }
 .container:hover .image {
+  transition: transform 0.3s;
   transform: scale(1.4);
 }
 
@@ -23,18 +27,25 @@
 .textContainer {
   position: absolute;
   bottom: -10.5px;
-  left: 50%;
+  left: -20%;
   text-align: center;
   background-color: rgba(226, 226, 226, 0.308);
-  transform: translateX(-50%);
+  /* transform: translateX(-50%); */
   width: 126px;
   text-align: center;
-  transition: opacity 0.2s;
+  transition: opacity 0.2s, transform 0.3s;
   opacity: 0;
-  box-sizing: border-box; 
+  transform: scale(1);
+  /* transform: translateY(100%); */
 }
 
 .container:hover .textContainer {
   opacity: 1;
-  
+  transform: scale(1.4);
+  transform: translateY(0);
+  transition: opacity 0.2s
+}
+
+.container:hover .image {
+  transition: transform 0.3s;
 }
