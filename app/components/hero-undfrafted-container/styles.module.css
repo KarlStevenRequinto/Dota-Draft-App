@@ -8,14 +8,18 @@
   width: 100%;
   height: auto;
   display: block;
+  border: 1px solid transparent;
   transition: transform 0.3s;
   transform: scale(1);
+  transition: border-color 0.3s ease;
 }
 .container:hover {
   z-index: 2;
 }
 .container:hover .image {
-  transition: transform 0.3s;
+  border-image: linear-gradient(to right, #fad8d8, #2c2b2b,#837f7f);
+  border-image-slice: 1;
+  transition: border-color 0.3s transform 0.3s ease;
   transform: scale(1.4);
 }
 
@@ -43,7 +47,7 @@
   opacity: 1;
   transform: scale(1.4);
   transform: translateY(0);
-  transition: opacity 0.2s
+  transition: opacity 0.2s;
 }
 
 .container:hover .image {
