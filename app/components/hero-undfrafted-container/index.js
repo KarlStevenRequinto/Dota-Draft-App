@@ -1,7 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-"use client"
-import React, { useEffect, useState } from "react"
-import { GetHeroStats } from "@/app/api"
+import React from "react"
 import styles from "./styles.module.css"
 
 const HeroUndraftedContainer = () => {
