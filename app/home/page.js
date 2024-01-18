@@ -1,10 +1,14 @@
-import React from "react"
-import ImmortalLogo from "../components/immortal-logo";
+"use client";
+import React from "react";
 
 export default function Home() {
-  return (
-    <main className="main">
-      <ImmortalLogo/>
-    </main>
-  )
+    const videoData = "/static/videos/video-bg.webm";
+
+    return (
+        <main className="main">
+            <video autoPlay muted loop>
+                <source src={videoData} type="video/webm" />
+            </video>
+        </main>
+    );
 }
