@@ -1,9 +1,9 @@
 .container {
   position: relative;
-  width: 150px;
-  height: 140px;
+  width: 200px;
+  height: 100px;
   transform: rotate(180deg);
-  clip-path: polygon(8% 0%, 92% 0%, 100% 100%, 0% 100%);
+  clip-path: polygon(10% 0%, 90% 0%, 100% 100%, 0% 100%);
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   background-size: cover;
   background-repeat: no-repeat;
@@ -15,11 +15,11 @@
 }
 
 .innerContainer {
-  border-radius: 50%;
-
+  width: 90px;
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 1;
 }
 
 .image {
@@ -39,3 +39,6 @@
   height: auto;
   z-index: -1;
 }
+
+
+
