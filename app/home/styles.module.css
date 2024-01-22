@@ -27,6 +27,9 @@
 }
 
 .draftingContainer {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
     background-color: blue;
     flex: 1;
 }
@@ -43,7 +46,7 @@
     background-color: pink;
     flex: 1;
 }
-.heroBox {
-    flex: 1;
-    text-align: center;
+
+.tbmContainer {
+    grid-column: span 2;
 }

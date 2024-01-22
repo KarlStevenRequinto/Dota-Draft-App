@@ -43,16 +43,17 @@ export default function Home() {
             <section id={styles.section}>
                 <div className={styles.heroGridContainer}>
                     <div className={styles.heroClassGridContainer}>
-                        {heroClasses.map((heroClass) =>
-                            heroBoxComponent(heroClass)
-                        )}
+                        {heroClasses.map((heroClass) =>heroBoxComponent(heroClass))}
                     </div>
                     <div className={styles.heroMiniDetailContainer}>
-                        heroMiniDetailContainer
+                    <div className={styles.againstContainer}>good against</div>
+                    <div className={styles.againstContainer}>bad against</div>
                     </div>
                 </div>
                 <div className={styles.draftingContainer}>
-                    draftingContainer
+                    <div className={styles.tbmContainer}>TEAM BAN ENEMY</div>
+                    <div>CORE</div>
+                    <div>SUPPORT</div>
                 </div>
             </section>
         </main>
