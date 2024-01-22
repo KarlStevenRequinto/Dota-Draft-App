@@ -38,6 +38,7 @@ a {
 .main {
   min-height: 100vh;
   position: relative;
+  padding: 0 200px;
 }
 
 .flexRow {

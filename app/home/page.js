@@ -6,7 +6,7 @@ import styles from "./styles.module.css";
 
 export default function Home() {
     const videoData = "/static/videos/video-bg.webm";
-
+    const heroClasses = ["Strength", "Agility", "Intelligence", "Universal"];
     const teamContainers = Array.from({ length: 5 }, (_, index) => (
         <HeroDraftedContainer key={index} type={"team"} />
     ));
@@ -19,6 +19,9 @@ export default function Home() {
         <HeroDraftedContainer key={index} type={"ban"} />
     ));
 
+    const heroBoxComponent = (heroClass) => {
+        return <div key={heroClass}>{heroClass}</div>;
+    };
 
     return (
         <main className="main">
@@ -32,8 +35,26 @@ export default function Home() {
                     <ImmortalLogo />
                     <div className="flexRow">{enemyContainers}</div>
                 </div>
-                <div className={`${styles.header} flexRow`}>{banContainers}</div>
+                <div className={`${styles.header} flexRow`}>
+                    {banContainers}
+                </div>
             </header>
+
+            <section id={styles.section}>
+                <div className={styles.heroGridContainer}>
+                    <div className={styles.heroClassGridContainer}>
+                        {heroClasses.map((heroClass) =>
+                            heroBoxComponent(heroClass)
+                        )}
+                    </div>
+                    <div className={styles.heroMiniDetailContainer}>
+                        heroMiniDetailContainer
+                    </div>
+                </div>
+                <div className={styles.draftingContainer}>
+                    draftingContainer
+                </div>
+            </section>
         </main>
     );
 }

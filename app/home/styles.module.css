@@ -11,3 +11,39 @@
     margin-bottom: 10px;
     justify-content: center;
 }
+#section, .heroGridContainer, .heroBox {
+    display: flex;
+}
+#section {
+    flex-direction: row;
+    gap: 20px;
+    height: 100%;
+    /* background-color: yellow; */
+}
+.heroGridContainer {
+    background-color: red;
+    flex-direction: column;
+    flex: 3;
+}
+
+.draftingContainer {
+    background-color: blue;
+    flex: 1;
+}
+
+.heroClassGridContainer {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 10px;
+    background-color: aquamarine;
+    flex: 3;
+}
+.heroMiniDetailContainer{
+    background-color: pink;
+    flex: 1;
+}
+.heroBox {
+    flex: 1;
+    text-align: center;
+}
