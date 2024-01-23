@@ -8,7 +8,7 @@
     z-index: -1;
 }
 .header {
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     justify-content: center;
 }
 #section, .heroGridContainer, .heroBox {
@@ -18,7 +18,7 @@
     flex-direction: row;
     gap: 20px;
     height: 100%;
-    /* background-color: yellow; */
+    margin-top: 20px;
 }
 .heroGridContainer {
     background-color: red;

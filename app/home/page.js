@@ -3,6 +3,7 @@ import React from "react";
 import HeroDraftedContainer from "../components/hero-drafted-container";
 import ImmortalLogo from "../components/immortal-logo";
 import styles from "./styles.module.css";
+import HeroGridComponent from "../components/hero-grid-container";
 
 export default function Home() {
     const videoData = "/static/videos/video-bg.webm";
@@ -18,10 +19,6 @@ export default function Home() {
     const banContainers = Array.from({ length: 11 }, (_, index) => (
         <HeroDraftedContainer key={index} type={"ban"} />
     ));
-
-    const heroBoxComponent = (heroClass) => {
-        return <div key={heroClass}>{heroClass}</div>;
-    };
 
     return (
         <main className="main">
@@ -43,11 +40,22 @@ export default function Home() {
             <section id={styles.section}>
                 <div className={styles.heroGridContainer}>
                     <div className={styles.heroClassGridContainer}>
-                        {heroClasses.map((heroClass) =>heroBoxComponent(heroClass))}
+                        {heroClasses.map((heroClass) => {
+                            return (
+                                <HeroGridComponent
+                                    heroClassName={heroClass}
+                                    key={heroClass}
+                                />
+                            );
+                        })}
                     </div>
                     <div className={styles.heroMiniDetailContainer}>
-                    <div className={styles.againstContainer}>good against</div>
-                    <div className={styles.againstContainer}>bad against</div>
+                        <div className={styles.againstContainer}>
+                            good against
+                        </div>
+                        <div className={styles.againstContainer}>
+                            bad against
+                        </div>
                     </div>
                 </div>
                 <div className={styles.draftingContainer}>
