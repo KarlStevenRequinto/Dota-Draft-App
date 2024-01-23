@@ -1,11 +1,45 @@
 "use client";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import HeroDraftedContainer from "../components/hero-drafted-container";
 import ImmortalLogo from "../components/immortal-logo";
 import styles from "./styles.module.css";
 import HeroGridComponent from "../components/hero-grid-container";
+import { GetHeroStats } from "../api";
 
 export default function Home() {
+    const [strHeroes, setStrHeroes] = useState(null);
+    const [agiHeroes, setAgiHeroes] = useState(null);
+    const [univHeroes, setUnivHeroes] = useState(null);
+    const [intHeroes, setIntHeroes] = useState(null);
+    useEffect(() => {
+        const fetchHeroes = async () => {
+            try {
+                const data = await GetHeroStats();
+                const newData = data.slice(1);
+                const strHeroesArray = newData
+                    .filter((hero) => hero.stat.AttributePrimary === "str")
+                    .sort((a, b) => a.displayName.localeCompare(b.displayName));
+                const agiHeroesArray = newData
+                    .filter((hero) => hero.stat.AttributePrimary === "agi")
+                    .sort((a, b) => a.displayName.localeCompare(b.displayName));
+                const intHeroesArray = newData
+                    .filter((hero) => hero.stat.AttributePrimary === "int")
+                    .sort((a, b) => a.displayName.localeCompare(b.displayName));
+                const univHeroesArray = newData
+                    .filter((hero) => hero.stat.AttributePrimary === "all")
+                    .sort((a, b) => a.displayName.localeCompare(b.displayName));
+                // console.log(strHeroesArray);
+                setStrHeroes(strHeroesArray);
+                setAgiHeroes(agiHeroesArray);
+                setIntHeroes(intHeroesArray);
+                setUnivHeroes(univHeroesArray);
+            } catch (error) {
+                console.error("Error fetching hero stats:", error);
+            }
+        };
+
+        fetchHeroes();
+    }, []);
     const videoData = "/static/videos/video-bg.webm";
     const heroClasses = ["Strength", "Agility", "Intelligence", "Universal"];
     const teamContainers = Array.from({ length: 5 }, (_, index) => (
@@ -44,6 +78,15 @@ export default function Home() {
                             return (
                                 <HeroGridComponent
                                     heroClassName={heroClass}
+                                    heroArray={
+                                        heroClass === "Strength"
+                                            ? strHeroes
+                                            : heroClass === "Agility"
+                                            ? agiHeroes
+                                            : heroClass === "Intelligence"
+                                            ? intHeroes
+                                            : univHeroes
+                                    }
                                     key={heroClass}
                                 />
                             );
