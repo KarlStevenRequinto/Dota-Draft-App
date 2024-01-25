@@ -1,48 +1,73 @@
-:root {
-  --font-mono: ui-monospace, Menlo, Monaco, "Cascadia Mono", "Segoe UI Mono",
-    "Roboto Mono", "Oxygen Mono", "Ubuntu Monospace", "Source Code Pro",
-    "Fira Mono", "Droid Sans Mono", "Courier New", monospace;
+@font-face {
+    font-family: "Federo";
+    src: url("/static/fonts/Federo-Regular.ttf") format("ttf");
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: "Goldman";
+    src: url("/static/fonts/Goldman-Regular.ttf") format("ttf");
+}
+@font-face {
+    font-family: "MochiyPopOne";
+    src: url("/static/fonts/MochiyPopOne-Regular.ttf") format("ttf");
+}
+@font-face {
+    font-family: "MuktaVaani";
+    src: url("/static/fonts/MuktaVaani-Regular.ttf") format("ttf");
+}
+@font-face {
+    font-family: "PoorStory";
+    src: url("/static/fonts/PoorStory-Regular.ttf") format("ttf");
+}
+@font-face {
+    font-family: "Skranji";
+    src: url("/static/fonts/Skranji-Regular.ttf") format("ttf");
+}
 
-  --locked-gray-01: rgb(87, 78, 78);
-  --green-01: #286323;
-  --green-02: #7af03c;
-  --red-01: #632323;
-  --red-02: #f03c3c;
-  --neutral-01:#828685;
-  --neutral-02:#d2d6d5;
+:root {
+    --locked-gray-01: rgb(87, 78, 78);
+    --green-01: #286323;
+    --green-02: #7af03c;
+    --red-01: #632323;
+    --red-02: #f03c3c;
+    --neutral-01: #828685;
+    --neutral-02: #d2d6d5;
 }
 
 * {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    font-family: "Goldman";
 }
 
 html,
 body {
-  max-width: 100vw;
-  overflow-x: hidden;
+    max-width: 100vw;
+    overflow-x: hidden;
+    font-family: var(--font-mono);
 }
 
 a {
-  color: inherit;
-  text-decoration: none;
+    color: inherit;
+    text-decoration: none;
 }
 
 @media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
+    html {
+        color-scheme: dark;
+    }
 }
 
 .main {
-  min-height: 100vh;
-  position: relative;
-  padding: 0 100px;
+    min-height: 100vh;
+    position: relative;
+    padding: 0 100px;
 }
 
 .flexRow {
-  display: flex;
-  align-items: center;
-  flex-direction: row;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
 }
