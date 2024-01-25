@@ -24,6 +24,7 @@ async function GetHeroStats() {
         );
 
         const data = await response.json();
+        console.log(data)
         const dataArray = Object.values(data);
         return dataArray;
     } catch (error) {

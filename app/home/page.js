@@ -5,6 +5,7 @@ import ImmortalLogo from "../components/immortal-logo";
 import styles from "./styles.module.css";
 import HeroGridComponent from "../components/hero-grid-container";
 import { GetHeroStats } from "../api";
+import { AGAINST_CORE, AGAINST_SUPPORT } from "../constants/mock-data";
 
 export default function Home() {
     const [strHeroes, setStrHeroes] = useState(null);
@@ -42,6 +43,7 @@ export default function Home() {
     }, []);
     const videoData = "/static/videos/video-bg.webm";
     const heroClasses = ["Strength", "Agility", "Intelligence", "Universal"];
+
     const teamContainers = Array.from({ length: 5 }, (_, index) => (
         <HeroDraftedContainer key={index} type={"team"} />
     ));
@@ -93,18 +95,56 @@ export default function Home() {
                         })}
                     </div>
                     <div className={styles.heroMiniDetailContainer}>
-                        <div className={styles.againstContainer}>
-                            good against
+                        <div className={styles.videoGifContainer}>
+                            <video
+                                autoPlay
+                                muted
+                                loop
+                                className={styles.gifVideo}
+                            >
+                                <source
+                                    src="https://cdn.cloudflare.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/ancient_apparition.webm"
+                                    type="video/webm"
+                                ></source>
+                            </video>
                         </div>
                         <div className={styles.againstContainer}>
-                            bad against
+                            <span className={styles.againstSpan}>
+                                Good Against
+                            </span>
+                            <div className={`${styles.against} ${styles.good}`}>
+                                {<HeroGridComponent heroArray={AGAINST_CORE} />}
+                                {
+                                    <HeroGridComponent
+                                        heroArray={AGAINST_SUPPORT}
+                                    />
+                                }
+                            </div>
+                            <span className={styles.againstSpan}>
+                                Bad Against
+                            </span>
+                            <div className={`${styles.against} ${styles.bad}`}>
+                                {<HeroGridComponent heroArray={AGAINST_CORE} />}
+                                {
+                                    <HeroGridComponent
+                                        heroArray={AGAINST_SUPPORT}
+                                    />
+                                }
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div className={styles.draftingContainer}>
-                    <div className={styles.tbmContainer}>TEAM BAN ENEMY</div>
-                    <div>CORE</div>
-                    <div>SUPPORT</div>
+                    <div className={styles.tbmContainer}>
+                        <div className={styles.heroClassIcon}></div>
+                        <div className={styles.draftSelectContainer}>
+                            <span className={`${styles.draftSelectBtn}`}>TEAM</span>
+                            <span className={`${styles.draftSelectBtn}`}>BAN</span>
+                            <span className={`${styles.draftSelectBtn}`}>ENEMY</span>
+                        </div>
+                    </div>
+                    <div className={`${styles.suggestlist}`}>CORE</div>
+                    <div className={`${styles.suggestlist}`}>SUPPORT</div>
                 </div>
             </section>
         </main>
