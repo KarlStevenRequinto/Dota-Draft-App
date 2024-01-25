@@ -6,6 +6,7 @@ import styles from "./styles.module.css";
 import HeroGridComponent from "../components/hero-grid-container";
 import { GetHeroStats } from "../api";
 import { AGAINST_CORE, AGAINST_SUPPORT } from "../constants/mock-data";
+import Image from "next/image";
 
 export default function Home() {
     const [strHeroes, setStrHeroes] = useState(null);
@@ -89,6 +90,8 @@ export default function Home() {
                                             ? intHeroes
                                             : univHeroes
                                     }
+                                    width={50}
+                                    height={40}
                                     key={heroClass}
                                 />
                             );
@@ -113,10 +116,18 @@ export default function Home() {
                                 Good Against
                             </span>
                             <div className={`${styles.against} ${styles.good}`}>
-                                {<HeroGridComponent heroArray={AGAINST_CORE} />}
+                                {
+                                    <HeroGridComponent
+                                        heroArray={AGAINST_CORE}
+                                        width={50}
+                                        height={40}
+                                    />
+                                }
                                 {
                                     <HeroGridComponent
                                         heroArray={AGAINST_SUPPORT}
+                                        width={50}
+                                        height={40}
                                     />
                                 }
                             </div>
@@ -124,10 +135,18 @@ export default function Home() {
                                 Bad Against
                             </span>
                             <div className={`${styles.against} ${styles.bad}`}>
-                                {<HeroGridComponent heroArray={AGAINST_CORE} />}
+                                {
+                                    <HeroGridComponent
+                                        heroArray={AGAINST_CORE}
+                                        width={50}
+                                        height={40}
+                                    />
+                                }
                                 {
                                     <HeroGridComponent
                                         heroArray={AGAINST_SUPPORT}
+                                        width={50}
+                                        height={40}
                                     />
                                 }
                             </div>
@@ -136,15 +155,41 @@ export default function Home() {
                 </div>
                 <div className={styles.draftingContainer}>
                     <div className={styles.tbmContainer}>
-                        <div className={styles.heroClassIcon}></div>
+                        <Image
+                            src={"/static/images/antimage.png"}
+                            objectFit="cover"
+                            fill="layout"
+                            alt="hero-image"
+                            className={styles.heroBGDraftSelect}
+                        />
+                        <Image
+                            src={"/static/icons/hero_agility.png"}
+                            width={50}
+                            height={50}
+                            alt="icon"
+                            className={styles.heroClassIcon}
+                        />
+
                         <div className={styles.draftSelectContainer}>
-                            <span className={`${styles.draftSelectBtn}`}>TEAM</span>
-                            <span className={`${styles.draftSelectBtn}`}>BAN</span>
-                            <span className={`${styles.draftSelectBtn}`}>ENEMY</span>
+                            <span className={`${styles.draftSelectBtn}`}>
+                                TEAM
+                            </span>
+                            <span className={`${styles.draftSelectBtn}`}>
+                                BAN
+                            </span>
+                            <span className={`${styles.draftSelectBtn}`}>
+                                ENEMY
+                            </span>
                         </div>
                     </div>
-                    <div className={`${styles.suggestlist}`}>CORE</div>
-                    <div className={`${styles.suggestlist}`}>SUPPORT</div>
+                    <div className={`${styles.suggestlist} ${styles.core}`}>
+                        <span>CORE</span>
+                        <HeroGridComponent heroArray={AGAINST_CORE} width={180} height={80}/>
+                    </div>
+                    <div className={`${styles.suggestlist}`}>
+                        <span>SUPPORT</span>
+                        <HeroGridComponent heroArray={AGAINST_SUPPORT} width={180} height={80}/>
+                    </div>
                 </div>
             </section>
         </main>
