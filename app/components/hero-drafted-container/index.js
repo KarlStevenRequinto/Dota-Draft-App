@@ -16,7 +16,6 @@ const HeroDraftedContainer = ({ type }) => {
         return background;
     };
     return (
-        // main container
         <div
             className={`${styles.container} ${
                 type === "team"
@@ -26,22 +25,26 @@ const HeroDraftedContainer = ({ type }) => {
                     : ""
             }`}
         >
-            {/* shadow container */}
             <div className={styles.outerShadowContainer}>
-                {/* image container */}
                 <div className={styles.imageContainer}>
                     <div className={styles.imageWrapper}>
                         <Image
                             // src should be a prop
                             src="/static/images/antimage.png"
                             alt="where's the hero image bro?"
-                            width={80}
+                            width={90}
                             height={65}
+                            className={`${styles.image} ${
+                                type === "team"
+                                    ? styles.teamImage
+                                    : type === "enemy"
+                                    ? styles.teamEnemy
+                                    : ""
+                            }`}
                         />
                     </div>
                 </div>
             </div>
-            {/* colored container */}
             <div
                 className={styles.draftColorContainer}
                 style={

@@ -1,48 +1,61 @@
 .container {
-  margin: 0 5px;
-  width: 80px;
-  height: 65px;
-  max-height: 90px;
-  margin-bottom: 10px;
-  background-image: radial-gradient(
-    circle at bottom,
-    rgb(92, 92, 92),
-    black 92%
-  );
-  box-shadow: 0px -19px 8px -16px black inset;
-  transition: transform 0.3s ease;
+    margin: 0 5px;
+    width: 80px;
+    height: 65px;
+    max-height: 90px;
+    margin-bottom: 10px;
+    background-image: radial-gradient(
+        circle at bottom,
+        rgb(92, 92, 92),
+        black 92%
+    );
+    box-shadow: 0px -19px 8px -16px black inset;
+    transition: transform 0.3s ease;
 }
 .team {
-  transform: skewX(10deg);
+    transform: skewX(10deg);
 }
 .enemy {
-  transform: skewX(-10deg);
+    transform: skewX(-10deg);
 }
 .draftColorContainer {
-  height: 10px;
-  transition: transform 0.3s ease;
+    height: 10px;
+    transition: transform 0.3s ease;
 }
 
 .imageContainer {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  padding-bottom: calc(65 / 80 * 100%);
-  overflow: hidden;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    padding-bottom: calc(65 / 80 * 100%);
+    overflow: hidden;
 }
 
 .imageWrapper {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  transition: transform 0.3s ease;
+    position: absolute;
+    top: 0;
+    left: -5px;
+    right: 0;
+    bottom: 0;
+    transition: transform 0.3s ease;
+    width: 100%;
 }
-
+.image {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
 .container:hover .imageWrapper {
-  transform: scale(1.2);
+    transform: scale(1.2);
 }
 .container:hover .draftColorContainer {
-  transform: scale(1);
+    transform: scale(1);
+}
+
+.teamImage {
+    transform: skewX(-10deg);
+    
+}
+.teamEnemy {
+    transform: skewX(10deg);
 }

@@ -2,16 +2,16 @@
 import React from "react";
 import styles from "./styles.module.css";
 
-const HeroGridComponent = ({ heroClassName, heroArray,width,height }) => {
+const HeroGridComponent = ({ heroClassName, heroArray, width, height }) => {
     return (
         <div>
             <div>{heroClassName}</div>
 
             {heroArray ? (
-                <span style={{backgroundColor:"yellow"}}>
+                <span>
                     {heroArray.map((hero, index) => {
                         return (
-                            <span key={index} style={{backgroundColor:"red"}}>
+                            <span key={index}>
                                 {
                                     <img
                                         src={`https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/${hero.shortName}.png`}

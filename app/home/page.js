@@ -90,7 +90,7 @@ export default function Home() {
                                             ? intHeroes
                                             : univHeroes
                                     }
-                                    width={50}
+                                    width={90}
                                     height={40}
                                     key={heroClass}
                                 />
@@ -119,14 +119,14 @@ export default function Home() {
                                 {
                                     <HeroGridComponent
                                         heroArray={AGAINST_CORE}
-                                        width={50}
+                                        width={60}
                                         height={40}
                                     />
                                 }
                                 {
                                     <HeroGridComponent
                                         heroArray={AGAINST_SUPPORT}
-                                        width={50}
+                                        width={60}
                                         height={40}
                                     />
                                 }
@@ -138,14 +138,14 @@ export default function Home() {
                                 {
                                     <HeroGridComponent
                                         heroArray={AGAINST_CORE}
-                                        width={50}
+                                        width={60}
                                         height={40}
                                     />
                                 }
                                 {
                                     <HeroGridComponent
                                         heroArray={AGAINST_SUPPORT}
-                                        width={50}
+                                        width={60}
                                         height={40}
                                     />
                                 }
@@ -184,11 +184,11 @@ export default function Home() {
                     </div>
                     <div className={`${styles.suggestlist} ${styles.core}`}>
                         <span>CORE</span>
-                        <HeroGridComponent heroArray={AGAINST_CORE} width={180} height={80}/>
+                        <HeroGridComponent heroArray={AGAINST_CORE} width={190} height={70}/>
                     </div>
                     <div className={`${styles.suggestlist}`}>
                         <span>SUPPORT</span>
-                        <HeroGridComponent heroArray={AGAINST_SUPPORT} width={180} height={80}/>
+                        <HeroGridComponent heroArray={AGAINST_SUPPORT} width={190} height={70}/>
                     </div>
                 </div>
             </section>
