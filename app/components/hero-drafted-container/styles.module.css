@@ -9,8 +9,9 @@
         rgb(92, 92, 92),
         black 92%
     );
-    box-shadow: 0px -19px 8px -16px black inset;
+    box-shadow: 0px -19px 8px -16px black inset, 0 0 6px rgb(104, 104, 104);
     transition: transform 0.3s ease;
+    cursor: pointer;
 }
 .team {
     transform: skewX(10deg);

@@ -1,3 +1,6 @@
+#section, .heroGridContainer, .heroBox,.against,.heroMiniDetailContainer,.againstContainer,.draftSelectContainer,.draftSelectBtn,.suggestlist {
+    display: flex;
+}
 .videoBg {
     position: absolute;
     top: 0;
@@ -11,9 +14,7 @@
     margin-bottom: 20px;
     justify-content: center;
 }
-#section, .heroGridContainer, .heroBox,.against,.heroMiniDetailContainer,.againstContainer,.draftSelectContainer,.draftSelectBtn,.suggestlist {
-    display: flex;
-}
+
 #section {
     flex-direction: row;
     gap: 20px;

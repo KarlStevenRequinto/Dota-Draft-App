@@ -4,14 +4,14 @@ import styles from "./styles.module.css";
 
 const HeroGridComponent = ({ heroClassName, heroArray, width, height }) => {
     return (
-        <div>
+        <div className={styles.container}>
             <div>{heroClassName}</div>
 
             {heroArray ? (
-                <span>
+                <div>
                     {heroArray.map((hero, index) => {
                         return (
-                            <span key={index}>
+                            <span key={index} style={{marginLeft:3,marginRight:3}}>
                                 {
                                     <img
                                         src={`https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/${hero.shortName}.png`}
@@ -23,7 +23,7 @@ const HeroGridComponent = ({ heroClassName, heroArray, width, height }) => {
                             </span>
                         );
                     })}
-                </span>
+                </div>
             ) : (
                 <p>Loading hero stats...</p>
             )}

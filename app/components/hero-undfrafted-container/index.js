@@ -12,7 +12,7 @@ const HeroUndraftedContainer = () => {
         <div className={styles.imageContainer}>
           <img src={heroImage} className={styles.image} alt="Hero Image" />
           <div className={styles.textContainer}>
-            <span>Antimage</span>
+            <span>asdasdasd</span>
           </div>
         </div>
       )}

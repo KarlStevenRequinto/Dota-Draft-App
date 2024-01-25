@@ -40,7 +40,7 @@
   transition: opacity 0.2s, transform 0.3s;
   opacity: 0;
   transform: scale(1);
-  /* transform: translateY(100%); */
+  transform: translateY(100%);
 }
 
 .container:hover .textContainer {

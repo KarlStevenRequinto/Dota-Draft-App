@@ -28,7 +28,7 @@ const HeroDraftedContainer = ({ type }) => {
             <div className={styles.outerShadowContainer}>
                 <div className={styles.imageContainer}>
                     <div className={styles.imageWrapper}>
-                        <Image
+                        {/* <Image
                             // src should be a prop
                             src="/static/images/antimage.png"
                             alt="where's the hero image bro?"
@@ -41,7 +41,7 @@ const HeroDraftedContainer = ({ type }) => {
                                     ? styles.teamEnemy
                                     : ""
                             }`}
-                        />
+                        /> */}
                     </div>
                 </div>
             </div>
