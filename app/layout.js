@@ -1,17 +1,17 @@
-import { Inter } from 'next/font/google'
-import './globals.css'
+import { Goldman } from "next/font/google";
+import "./globals.css";
 
-const inter = Inter({ subsets: ['latin'] })
+const goldman = Goldman({ subsets: ["latin"], weight: "400" });
 
 export const metadata = {
-  title: 'Dota Draft App',
-  description: 'This project is made by Lerd Robott',
-}
+    title: "Dota Draft App",
+    description: "This project is made by Lerd Robott",
+};
 
 export default function RootLayout({ children }) {
-  return (
-    <html lang="en" suppressHydrationWarning={true}>
-      <body className={inter.className}>{children}</body>
-    </html>
-  )
+    return (
+        <html lang="en" suppressHydrationWarning={true}>
+            <body className={goldman.className}>{children}</body>
+        </html>
+    );
 }
