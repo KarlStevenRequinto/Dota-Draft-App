@@ -126,6 +126,7 @@ export default function Home() {
                                 style={{
                                     background:
                                         "linear-gradient(to bottom, var(--green-03), var(--green-04))",
+                                    flex: 1,
                                 }}
                             >
                                 <div className={styles.againstSpan}>
@@ -138,6 +139,7 @@ export default function Home() {
                                             style={{
                                                 textAlign: "right",
                                                 fontSize: 12,
+                                                lineHeight: 1.2,
                                             }}
                                         >
                                             Core
@@ -161,6 +163,7 @@ export default function Home() {
                                             style={{
                                                 textAlign: "right",
                                                 fontSize: 12,
+                                                lineHeight: 1.2,
                                             }}
                                         >
                                             Support
@@ -184,6 +187,7 @@ export default function Home() {
                                 style={{
                                     background:
                                         "linear-gradient(to bottom, var(--red-03), var(--red-04))",
+                                    flex: 1,
                                 }}
                             >
                                 <div className={styles.againstSpan}>
@@ -196,6 +200,7 @@ export default function Home() {
                                             style={{
                                                 textAlign: "right",
                                                 fontSize: 12,
+                                                lineHeight: 1.2,
                                             }}
                                         >
                                             Core
@@ -219,6 +224,7 @@ export default function Home() {
                                             style={{
                                                 textAlign: "right",
                                                 fontSize: 12,
+                                                lineHeight: 1.2,
                                             }}
                                         >
                                             Support
