@@ -1,26 +1,34 @@
 /* eslint-disable @next/next/no-img-element */
 import React from "react";
-import styles from "./styles.module.css";
 
-const HeroGridComponent = ({ heroClassName, heroArray, width, height }) => {
+const HeroGridComponent = ({
+    heroClassName,
+    heroGridStyle,
+    heroGridContainerStyle,
+    imageStyle,
+    heroArray,
+    width,
+    height,
+}) => {
     return (
-        <div className={styles.container}>
+        <div>
             <div>{heroClassName}</div>
 
             {heroArray ? (
-                <div>
+                <div className={heroGridContainerStyle}>
                     {heroArray.map((hero, index) => {
                         return (
-                            <span key={index} style={{marginLeft:3,marginRight:3}}>
+                            <div key={index} className={heroGridStyle}>
                                 {
                                     <img
                                         src={`https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/${hero.shortName}.png`}
                                         alt="Hero"
                                         width={width}
                                         height={height}
+                                        className={imageStyle}
                                     />
                                 }
-                            </span>
+                            </div>
                         );
                     })}
                 </div>

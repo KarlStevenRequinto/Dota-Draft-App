@@ -13,6 +13,7 @@ export default function Home() {
     const [agiHeroes, setAgiHeroes] = useState(null);
     const [univHeroes, setUnivHeroes] = useState(null);
     const [intHeroes, setIntHeroes] = useState(null);
+    
     useEffect(() => {
         const fetchHeroes = async () => {
             try {
@@ -93,6 +94,11 @@ export default function Home() {
                                     width={90}
                                     height={40}
                                     key={heroClass}
+                                    heroGridStyle={styles.gridStyle}
+                                    heroGridContainerStyle={
+                                        styles.gridContainerStyle
+                                    }
+                                    imageStyle={styles.gridImgStyle}
                                 />
                             );
                         })}
@@ -112,43 +118,81 @@ export default function Home() {
                             </video>
                         </div>
                         <div className={styles.againstContainer}>
-                            <span className={styles.againstSpan}>
-                                Good Against
-                            </span>
-                            <div className={`${styles.against} ${styles.good}`}>
-                                {
-                                    <HeroGridComponent
-                                        heroArray={AGAINST_CORE}
-                                        width={60}
-                                        height={40}
-                                    />
-                                }
-                                {
-                                    <HeroGridComponent
-                                        heroArray={AGAINST_SUPPORT}
-                                        width={60}
-                                        height={40}
-                                    />
-                                }
+                            <div>
+                                <div className={styles.againstSpan}>
+                                    Good Against
+                                </div>
+                                <div
+                                    className={`${styles.against} ${styles.good}`}
+                                >
+                                    <div>
+                                        <span className="federo-font">
+                                            Core
+                                        </span>
+                                        {
+                                            <HeroGridComponent
+                                                heroArray={AGAINST_CORE}
+                                                width={60}
+                                                height={40}
+                                                heroGridStyle={styles.gridStyle}
+                                                heroGridContainerStyle={
+                                                    styles.gridContainerStyle
+                                                }
+                                            />
+                                        }
+                                    </div>
+                                    <div>
+                                        <span>Support</span>
+                                        {
+                                            <HeroGridComponent
+                                                heroArray={AGAINST_SUPPORT}
+                                                width={60}
+                                                height={40}
+                                                heroGridStyle={styles.gridStyle}
+                                                heroGridContainerStyle={
+                                                    styles.gridContainerStyle
+                                                }
+                                            />
+                                        }
+                                    </div>
+                                </div>
                             </div>
-                            <span className={styles.againstSpan}>
-                                Bad Against
-                            </span>
-                            <div className={`${styles.against} ${styles.bad}`}>
-                                {
-                                    <HeroGridComponent
-                                        heroArray={AGAINST_CORE}
-                                        width={60}
-                                        height={40}
-                                    />
-                                }
-                                {
-                                    <HeroGridComponent
-                                        heroArray={AGAINST_SUPPORT}
-                                        width={60}
-                                        height={40}
-                                    />
-                                }
+                            <div>
+                                <div className={styles.againstSpan}>
+                                    Bad Against
+                                </div>
+                                <div
+                                    className={`${styles.against} ${styles.bad}`}
+                                >
+                                    <div>
+                                        <span>Core</span>
+                                        {
+                                            <HeroGridComponent
+                                                heroArray={AGAINST_CORE}
+                                                width={60}
+                                                height={40}
+                                                heroGridStyle={styles.gridStyle}
+                                                heroGridContainerStyle={
+                                                    styles.gridContainerStyle
+                                                }
+                                            />
+                                        }
+                                    </div>
+                                    <div>
+                                        <span>Support</span>
+                                        {
+                                            <HeroGridComponent
+                                                heroArray={AGAINST_SUPPORT}
+                                                width={60}
+                                                height={40}
+                                                heroGridStyle={styles.gridStyle}
+                                                heroGridContainerStyle={
+                                                    styles.gridContainerStyle
+                                                }
+                                            />
+                                        }
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -157,9 +201,10 @@ export default function Home() {
                     <div className={styles.tbmContainer}>
                         <Image
                             src={"/static/images/antimage.png"}
-                            objectFit="cover"
                             fill="layout"
                             alt="hero-image"
+                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                            priority
                             className={styles.heroBGDraftSelect}
                         />
                         <Image
@@ -184,11 +229,19 @@ export default function Home() {
                     </div>
                     <div className={`${styles.suggestlist} ${styles.core}`}>
                         <span>CORE</span>
-                        <HeroGridComponent heroArray={AGAINST_CORE} width={190} height={70}/>
+                        <HeroGridComponent
+                            heroArray={AGAINST_CORE}
+                            width={190}
+                            height={70}
+                        />
                     </div>
                     <div className={`${styles.suggestlist}`}>
                         <span>SUPPORT</span>
-                        <HeroGridComponent heroArray={AGAINST_SUPPORT} width={190} height={70}/>
+                        <HeroGridComponent
+                            heroArray={AGAINST_SUPPORT}
+                            width={190}
+                            height={70}
+                        />
                     </div>
                 </div>
             </section>
