@@ -7,13 +7,17 @@ import HeroGridComponent from "../components/hero-grid-container";
 import { GetHeroStats } from "../api";
 import { AGAINST_CORE, AGAINST_SUPPORT } from "../constants/mock-data";
 import Image from "next/image";
+import { Federo, Mukta_Vaani } from "next/font/google";
+
+const federo = Federo({ subsets: ["latin"], weight: "400" });
+const mukta = Mukta_Vaani({ subsets: ["latin"], weight: "400" });
 
 export default function Home() {
     const [strHeroes, setStrHeroes] = useState(null);
     const [agiHeroes, setAgiHeroes] = useState(null);
     const [univHeroes, setUnivHeroes] = useState(null);
     const [intHeroes, setIntHeroes] = useState(null);
-    
+
     useEffect(() => {
         const fetchHeroes = async () => {
             try {
@@ -118,17 +122,26 @@ export default function Home() {
                             </video>
                         </div>
                         <div className={styles.againstContainer}>
-                            <div>
+                            <div
+                                style={{
+                                    background:
+                                        "linear-gradient(to bottom, var(--green-03), var(--green-04))",
+                                }}
+                            >
                                 <div className={styles.againstSpan}>
                                     Good Against
                                 </div>
-                                <div
-                                    className={`${styles.against} ${styles.good}`}
-                                >
+                                <div className={styles.against}>
                                     <div>
-                                        <span className="federo-font">
+                                        <div
+                                            className={mukta.className}
+                                            style={{
+                                                textAlign: "right",
+                                                fontSize: 12,
+                                            }}
+                                        >
                                             Core
-                                        </span>
+                                        </div>
                                         {
                                             <HeroGridComponent
                                                 heroArray={AGAINST_CORE}
@@ -138,11 +151,20 @@ export default function Home() {
                                                 heroGridContainerStyle={
                                                     styles.gridContainerStyle
                                                 }
+                                                imageStyle={styles.gridImgStyle}
                                             />
                                         }
                                     </div>
                                     <div>
-                                        <span>Support</span>
+                                        <div
+                                            className={mukta.className}
+                                            style={{
+                                                textAlign: "right",
+                                                fontSize: 12,
+                                            }}
+                                        >
+                                            Support
+                                        </div>
                                         {
                                             <HeroGridComponent
                                                 heroArray={AGAINST_SUPPORT}
@@ -152,20 +174,32 @@ export default function Home() {
                                                 heroGridContainerStyle={
                                                     styles.gridContainerStyle
                                                 }
+                                                imageStyle={styles.gridImgStyle}
                                             />
                                         }
                                     </div>
                                 </div>
                             </div>
-                            <div>
+                            <div
+                                style={{
+                                    background:
+                                        "linear-gradient(to bottom, var(--red-03), var(--red-04))",
+                                }}
+                            >
                                 <div className={styles.againstSpan}>
                                     Bad Against
                                 </div>
-                                <div
-                                    className={`${styles.against} ${styles.bad}`}
-                                >
+                                <div className={styles.against}>
                                     <div>
-                                        <span>Core</span>
+                                        <div
+                                            className={mukta.className}
+                                            style={{
+                                                textAlign: "right",
+                                                fontSize: 12,
+                                            }}
+                                        >
+                                            Core
+                                        </div>
                                         {
                                             <HeroGridComponent
                                                 heroArray={AGAINST_CORE}
@@ -175,11 +209,20 @@ export default function Home() {
                                                 heroGridContainerStyle={
                                                     styles.gridContainerStyle
                                                 }
+                                                imageStyle={styles.gridImgStyle}
                                             />
                                         }
                                     </div>
                                     <div>
-                                        <span>Support</span>
+                                        <div
+                                            className={mukta.className}
+                                            style={{
+                                                textAlign: "right",
+                                                fontSize: 12,
+                                            }}
+                                        >
+                                            Support
+                                        </div>
                                         {
                                             <HeroGridComponent
                                                 heroArray={AGAINST_SUPPORT}
@@ -189,6 +232,7 @@ export default function Home() {
                                                 heroGridContainerStyle={
                                                     styles.gridContainerStyle
                                                 }
+                                                imageStyle={styles.gridImgStyle}
                                             />
                                         }
                                     </div>

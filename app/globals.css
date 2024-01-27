@@ -2,8 +2,12 @@
     --locked-gray-01: rgb(87, 78, 78);
     --green-01: #286323;
     --green-02: #7af03c;
+    --green-03: rgba(40, 99, 35, 0.8);
+    --green-04: rgba(122, 240, 60, 0.8);
     --red-01: #632323;
     --red-02: #f03c3c;
+    --red-03: rgba(99, 35, 35, 0.8);
+    --red-04: rgba(240, 60, 60, 0.8);
     --neutral-01: #828685;
     --neutral-02: #d2d6d5;
 }
@@ -12,7 +16,6 @@
     box-sizing: border-box;
     padding: 0;
     margin: 0;
-    
 }
 
 html,
