@@ -186,7 +186,7 @@ export default function Home() {
                             <div
                                 style={{
                                     background:
-                                        "linear-gradient(to bottom, var(--red-03), var(--red-04))",
+                                        "linear-gradient(to top, var(--red-03), var(--red-04))",
                                     flex: 1,
                                 }}
                             >
@@ -266,13 +266,13 @@ export default function Home() {
                         />
 
                         <div className={styles.draftSelectContainer}>
-                            <span className={`${styles.draftSelectBtn}`}>
+                            <span className={`${styles.draftSelectBtn} ${styles.selectTeam}`}>
                                 TEAM
                             </span>
-                            <span className={`${styles.draftSelectBtn}`}>
+                            <span className={`${styles.draftSelectBtn} ${styles.selectBan}`}>
                                 BAN
                             </span>
-                            <span className={`${styles.draftSelectBtn}`}>
+                            <span className={`${styles.draftSelectBtn} ${styles.selectEnemy}`}>
                                 ENEMY
                             </span>
                         </div>

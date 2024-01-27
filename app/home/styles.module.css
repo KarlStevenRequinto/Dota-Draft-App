@@ -76,13 +76,43 @@
     justify-content: center;
     border: 1px solid black;
     flex: 1;
+    cursor: pointer;
+    transition: transform 0.1s ease;
+}
+
+.draftSelectBtn:hover {
+    transform: scale(1.1);
+}
+
+.selectTeam {
+    background: linear-gradient(to bottom, var(--green-01), var(--green-02));
+}
+.selectTeam:hover {
+    box-shadow: 0 0 15px var(--green-02);
+}
+.selectBan {
+    background: linear-gradient(
+        to top,
+        var(--neutral-02),
+        var(--locked-gray-01)
+    );
+}
+.selectBan:hover {
+    box-shadow: 0 0 15px var(--neutral-02);
+}
+
+.selectEnemy {
+    background: linear-gradient(to bottom, var(--red-01), var(--red-02));
+}
+
+.selectEnemy:hover {
+    box-shadow: 0 0 15px var(--red-02);
 }
 
 .againstContainer {
     /* background-color: rgba(255, 255, 0, 0.178); */
     flex-direction: column;
     justify-content: space-between;
-    margin: 0 10px;
     flex: 1;
 }
 .against {
@@ -95,7 +125,6 @@
     width: 300px;
     height: 200px;
     overflow: hidden;
-    /* background-color: blue; */
 }
 .gifVideo {
     width: 340px;
@@ -144,7 +173,7 @@
     border: 1px solid black;
 }
 
-.againstSpan{
+.againstSpan {
     margin-top: 4px;
     margin-left: 4px;
 
