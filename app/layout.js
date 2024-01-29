@@ -1,4 +1,5 @@
 import { Goldman } from "next/font/google";
+import AppProvider from "./context";
 import "./globals.css";
 
 const goldman = Goldman({ subsets: ["latin"], weight: "400" });
@@ -16,7 +17,7 @@ export default function RootLayout({ children }) {
             style={{ backgroundColor: "red" }}
         >
             <body className={goldman.className}>
-                {children}
+                <AppProvider>{children}</AppProvider>
             </body>
         </html>
     );

@@ -8,7 +8,7 @@ import { GetHeroStats } from "../api";
 import { AGAINST_CORE, AGAINST_SUPPORT } from "../constants/mock-data";
 import Image from "next/image";
 import { Federo, Mukta_Vaani } from "next/font/google";
-
+import { AppContext } from "../context";
 const federo = Federo({ subsets: ["latin"], weight: "400" });
 const mukta = Mukta_Vaani({ subsets: ["latin"], weight: "400" });
 
@@ -17,7 +17,11 @@ export default function Home() {
     const [agiHeroes, setAgiHeroes] = useState(null);
     const [univHeroes, setUnivHeroes] = useState(null);
     const [intHeroes, setIntHeroes] = useState(null);
+    const appContext = useContext(AppContext);
 
+    useEffect(()=>{
+        console.log(appContext)
+    },[])
     useEffect(() => {
         const fetchHeroes = async () => {
             try {
