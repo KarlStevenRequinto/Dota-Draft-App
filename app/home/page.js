@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import HeroDraftedContainer from "../components/hero-drafted-container";
 import ImmortalLogo from "../components/immortal-logo";
 import styles from "./styles.module.css";
@@ -122,13 +122,7 @@ export default function Home() {
                             </video>
                         </div>
                         <div className={styles.againstContainer}>
-                            <div
-                                style={{
-                                    background:
-                                        "linear-gradient(to bottom, var(--green-03), var(--green-04))",
-                                    flex: 1,
-                                }}
-                            >
+                            <div style={{ flex: 1 }}>
                                 <div className={styles.againstSpan}>
                                     Good Against
                                 </div>
@@ -183,13 +177,7 @@ export default function Home() {
                                     </div>
                                 </div>
                             </div>
-                            <div
-                                style={{
-                                    background:
-                                        "linear-gradient(to top, var(--red-03), var(--red-04))",
-                                    flex: 1,
-                                }}
-                            >
+                            <div style={{ flex: 1 }}>
                                 <div className={styles.againstSpan}>
                                     Bad Against
                                 </div>
@@ -266,31 +254,39 @@ export default function Home() {
                         />
 
                         <div className={styles.draftSelectContainer}>
-                            <span className={`${styles.draftSelectBtn} ${styles.selectTeam}`}>
+                            <span
+                                className={`${styles.draftSelectBtn} ${styles.selectTeam}`}
+                            >
                                 TEAM
                             </span>
-                            <span className={`${styles.draftSelectBtn} ${styles.selectBan}`}>
+                            <span
+                                className={`${styles.draftSelectBtn} ${styles.selectBan}`}
+                            >
                                 BAN
                             </span>
-                            <span className={`${styles.draftSelectBtn} ${styles.selectEnemy}`}>
+                            <span
+                                className={`${styles.draftSelectBtn} ${styles.selectEnemy}`}
+                            >
                                 ENEMY
                             </span>
                         </div>
                     </div>
-                    <div className={`${styles.suggestlist} ${styles.core}`}>
-                        <span>CORE</span>
+                    <div className={`${styles.suggestlist}`}>
+                        <div style={{ position: "fixed" }}>CORE</div>
                         <HeroGridComponent
                             heroArray={AGAINST_CORE}
-                            width={190}
+                            width={"100%"}
                             height={70}
+                            heroGridStyle={styles.suggestStyle}
                         />
                     </div>
                     <div className={`${styles.suggestlist}`}>
-                        <span>SUPPORT</span>
+                        <span style={{ position: "fixed" }}>SUPPORT</span>
                         <HeroGridComponent
                             heroArray={AGAINST_SUPPORT}
-                            width={190}
+                            width={"100%"}
                             height={70}
+                            heroGridStyle={styles.suggestStyle}
                         />
                     </div>
                 </div>

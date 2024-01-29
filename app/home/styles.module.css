@@ -82,6 +82,7 @@
 
 .draftSelectBtn:hover {
     transform: scale(1.1);
+    z-index: 2;
 }
 
 .selectTeam {
@@ -134,11 +135,31 @@
 }
 
 .suggestlist {
-    /* background-color: rgba(0, 217, 255, 0.336); */
+    position: relative;
     flex-direction: column;
     overflow: scroll;
+    overflow-x: hidden;
+    transition: background-color 1s ease;
+}
+.suggestlist:hover::-webkit-scrollbar-thumb {
+    -webkit-transition: 1.2s ease;
+    display: block;
+}
+.suggestlist::-webkit-scrollbar-thumb {
+    display: none;
+    background-color: rgba(255, 255, 255, 0.733);
+    transition:display 2s ease;
+    border-radius: 9px;
+}
+.suggestlist::-webkit-scrollbar {
+    width: 6px;
+    background-color: rgba(0, 0, 0, 0.658);
 }
 
+.suggestStyle {
+    height: 72px;
+    border-bottom: 2px solid rgba(0, 60, 255, 0.418);
+}
 .heroClassIcon {
     position: absolute;
     top: 8px;
