@@ -9,6 +9,7 @@ const HeroGridComponent = ({
     heroArray,
     width,
     height,
+    onSelectHero
 }) => {
     return (
         <div>
@@ -18,7 +19,7 @@ const HeroGridComponent = ({
                 <div className={heroGridContainerStyle}>
                     {heroArray.map((hero, index) => {
                         return (
-                            <div key={index} className={heroGridStyle}>
+                            <div key={index} className={heroGridStyle} onClick={() => onSelectHero(hero)}>
                                 {
                                     <img
                                         src={`https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/${hero.shortName}.png`}

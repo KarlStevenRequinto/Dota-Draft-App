@@ -17,16 +17,15 @@ export default function Home() {
     const [agiHeroes, setAgiHeroes] = useState(null);
     const [univHeroes, setUnivHeroes] = useState(null);
     const [intHeroes, setIntHeroes] = useState(null);
+    const [gifHeroSource, setGifHeroSource] = useState(null);
     const appContext = useContext(AppContext);
 
-    useEffect(() => {
-        console.log(appContext);
-    }, []);
     useEffect(() => {
         const fetchHeroes = async () => {
             try {
                 const data = await GetHeroStats();
                 const newData = data.slice(1);
+
                 const strHeroesArray = newData
                     .filter((hero) => hero.stat.AttributePrimary === "str")
                     .sort((a, b) => a.displayName.localeCompare(b.displayName));
@@ -39,7 +38,6 @@ export default function Home() {
                 const univHeroesArray = newData
                     .filter((hero) => hero.stat.AttributePrimary === "all")
                     .sort((a, b) => a.displayName.localeCompare(b.displayName));
-                // console.log(strHeroesArray);
                 setStrHeroes(strHeroesArray);
                 setAgiHeroes(agiHeroesArray);
                 setIntHeroes(intHeroesArray);
@@ -51,6 +49,7 @@ export default function Home() {
 
         fetchHeroes();
     }, []);
+
     const videoData = "/static/videos/video-bg.webm";
     const heroClasses = ["Strength", "Agility", "Intelligence", "Universal"];
 
@@ -60,6 +59,11 @@ export default function Home() {
 
     const banContainers = Array.from({ length: 11 }, (_, index) => <HeroDraftedContainer key={index} type={"ban"} />);
     const alignStyle = { textAlign: "right", fontSize: 12, lineHeight: 1.2 };
+
+    const onSelectHero = (hero) => {
+        setGifHeroSource(`https://cdn.cloudflare.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/${hero.shortName}.webm`);
+        appContext.setHeroSelected({ ...hero });
+    };
     return (
         <main className="main">
             <video autoPlay muted loop className={styles.videoBg}>
@@ -97,18 +101,22 @@ export default function Home() {
                                     heroGridStyle={styles.gridStyle}
                                     heroGridContainerStyle={styles.gridContainerStyle}
                                     imageStyle={styles.gridImgStyle}
+                                    onSelectHero={onSelectHero}
                                 />
                             );
                         })}
                     </div>
                     <div className={styles.heroMiniDetailContainer}>
                         <div className={styles.videoGifContainer}>
-                            <video autoPlay muted loop className={styles.gifVideo}>
-                                <source
-                                    src="https://cdn.cloudflare.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/ancient_apparition.webm"
-                                    type="video/webm"
-                                ></source>
-                            </video>
+                            {gifHeroSource ? (
+                                <video autoPlay muted loop className={styles.gifVideo} key={gifHeroSource}>
+                                    <source
+                                        src={gifHeroSource}
+                                        type="video/webm"
+                                    ></source>
+                                    {console.log(gifHeroSource)}
+                                </video>
+                            ) : null}
                         </div>
                         <div className={styles.againstContainer}>
                             <div style={{ flex: 1 }}>
