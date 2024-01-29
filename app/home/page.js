@@ -4,7 +4,7 @@ import HeroDraftedContainer from "../components/hero-drafted-container";
 import ImmortalLogo from "../components/immortal-logo";
 import styles from "./styles.module.css";
 import HeroGridComponent from "../components/hero-grid-container";
-import { GetHeroStats } from "../api";
+import { GetGamesPlayed, GetHeroStats } from "../api";
 import { AGAINST_CORE, AGAINST_SUPPORT } from "../constants/mock-data";
 import Image from "next/image";
 import { Federo, Mukta_Vaani } from "next/font/google";
@@ -50,7 +50,13 @@ export default function Home() {
 
         fetchHeroes();
     }, []);
-
+    const fetchMatches = async (heroId) => {
+        try {
+            const data = await GetGamesPlayed(heroId);
+        } catch (error) {
+            console.error("Error fetching hero matches:", error);
+        }
+    };
     const videoData = "/static/videos/video-bg.webm";
     const heroClasses = ["Strength", "Agility", "Intelligence", "Universal"];
 
@@ -62,10 +68,12 @@ export default function Home() {
     const alignStyle = { textAlign: "right", fontSize: 12, lineHeight: 1.2 };
 
     const onSelectHero = (hero) => {
-        console.log(hero.id)
+        appContext.setHeroSelectedId(hero.id);
         setSelectedHeroClass(hero.stat.AttributePrimary);
         setGifHeroSource(hero.shortName);
         appContext.setHeroSelected({ ...hero });
+
+        fetchMatches(hero.id);
     };
 
     const iconClass =

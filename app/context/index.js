@@ -11,9 +11,10 @@ export const AppContext = createContext({
 
 export default function AppProvider({ children }) {
     const [heroSelected, setHeroSelected] = useState(null);
-    const [draftedTeam,setDraftedTeam] = useState([])
-    const [draftedEnemy,setDraftedEnemy] = useState([])
-    const [draftedBans,setDraftedBans] = useState([])
+    const [draftedTeam, setDraftedTeam] = useState([]);
+    const [draftedEnemy, setDraftedEnemy] = useState([]);
+    const [draftedBans, setDraftedBans] = useState([]);
+    const [heroSelectedId, setHeroSelectedId] = useState(null);
 
     const addHeroToDraft = (selectedArray, heroId) => {
         console.log("AddHeroToDraft");
@@ -23,13 +24,18 @@ export default function AppProvider({ children }) {
         console.log("RemoveHeroFromDraft");
     };
 
-    console.log("heroSelected in AppProvider:", heroSelected ? heroSelected.shortName : "wala pa");
+    console.log("heroSelected in AppProvider:", heroSelectedId ? heroSelectedId : null);
 
     const value = {
+        heroSelectedId,
+        setHeroSelectedId,
         heroSelected,
         setHeroSelected,
+        draftedTeam,
         setDraftedTeam,
+        draftedEnemy,
         setDraftedEnemy,
+        draftedBans,
         setDraftedBans,
         addHeroToDraft,
         removeHeroFromDraft,
