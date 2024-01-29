@@ -4,12 +4,16 @@ import { createContext, useState } from "react";
 
 export const AppContext = createContext({
     heroSelected: null,
+    heroSelectedId: null,
     addHeroToDraft: () => {},
     removeHeroFromDraft: () => {},
 });
 
 export default function AppProvider({ children }) {
     const [heroSelected, setHeroSelected] = useState(null);
+    const [draftedTeam,setDraftedTeam] = useState([])
+    const [draftedEnemy,setDraftedEnemy] = useState([])
+    const [draftedBans,setDraftedBans] = useState([])
 
     const addHeroToDraft = (selectedArray, heroId) => {
         console.log("AddHeroToDraft");
@@ -24,6 +28,9 @@ export default function AppProvider({ children }) {
     const value = {
         heroSelected,
         setHeroSelected,
+        setDraftedTeam,
+        setDraftedEnemy,
+        setDraftedBans,
         addHeroToDraft,
         removeHeroFromDraft,
     };

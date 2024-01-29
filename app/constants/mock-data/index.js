@@ -6,9 +6,6 @@ const AGAINST_CORE = [
     { id: "5", shortName: "phantom_assassin" },
     { id: "6", shortName: "dragon_knight" },
     { id: "7", shortName: "necrolyte" },
-    { id: "7", shortName: "vengefulspirit" },
-
-
 ];
 
 const AGAINST_SUPPORT = [
@@ -19,8 +16,6 @@ const AGAINST_SUPPORT = [
     { id: "5", shortName: "wisp" },
     { id: "6", shortName: "pudge" },
     { id: "7", shortName: "vengefulspirit" },
-    { id: "7", shortName: "vengefulspirit" },
-
 ];
 
 export { AGAINST_CORE, AGAINST_SUPPORT };

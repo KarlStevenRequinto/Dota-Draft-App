@@ -18,6 +18,7 @@ export default function Home() {
     const [univHeroes, setUnivHeroes] = useState(null);
     const [intHeroes, setIntHeroes] = useState(null);
     const [gifHeroSource, setGifHeroSource] = useState(null);
+    const [selectedHeroClass, setSelectedHeroClass] = useState(null);
     const appContext = useContext(AppContext);
 
     useEffect(() => {
@@ -61,9 +62,22 @@ export default function Home() {
     const alignStyle = { textAlign: "right", fontSize: 12, lineHeight: 1.2 };
 
     const onSelectHero = (hero) => {
-        setGifHeroSource(`https://cdn.cloudflare.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/${hero.shortName}.webm`);
+        console.log(hero.id)
+        setSelectedHeroClass(hero.stat.AttributePrimary);
+        setGifHeroSource(hero.shortName);
         appContext.setHeroSelected({ ...hero });
     };
+
+    const iconClass =
+        selectedHeroClass === "agi"
+            ? "hero_agility"
+            : selectedHeroClass === "str"
+            ? "hero_strength"
+            : selectedHeroClass === "int"
+            ? "hero_intelligence"
+            : selectedHeroClass === "all"
+            ? "hero_universal"
+            : null;
     return (
         <main className="main">
             <video autoPlay muted loop className={styles.videoBg}>
@@ -111,10 +125,9 @@ export default function Home() {
                             {gifHeroSource ? (
                                 <video autoPlay muted loop className={styles.gifVideo} key={gifHeroSource}>
                                     <source
-                                        src={gifHeroSource}
+                                        src={`https://cdn.cloudflare.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/${gifHeroSource}.webm`}
                                         type="video/webm"
                                     ></source>
-                                    {console.log(gifHeroSource)}
                                 </video>
                             ) : null}
                         </div>
@@ -194,15 +207,21 @@ export default function Home() {
                 </div>
                 <div className={styles.draftingContainer}>
                     <div className={styles.tbmContainer}>
-                        <Image
-                            src={"/static/images/antimage.png"}
-                            fill="layout"
-                            alt="hero-image"
-                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                            priority
-                            className={styles.heroBGDraftSelect}
-                        />
-                        <Image src={"/static/icons/hero_agility.png"} width={50} height={50} alt="icon" className={styles.heroClassIcon} />
+                        {gifHeroSource ? (
+                            <Image
+                                src={`https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/${gifHeroSource}.png`}
+                                fill="layout"
+                                alt="hero-image"
+                                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                                priority
+                                className={styles.heroBGDraftSelect}
+                                key={gifHeroSource}
+                            />
+                        ) : null}
+
+                        {iconClass ? (
+                            <Image src={`/static/icons/${iconClass}.png`} width={50} height={50} alt="icon" className={styles.heroClassIcon} />
+                        ) : null}
 
                         <div className={styles.draftSelectContainer}>
                             <span className={`${styles.draftSelectBtn} ${styles.selectTeam}`}>TEAM</span>
