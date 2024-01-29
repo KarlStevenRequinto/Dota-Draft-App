@@ -19,9 +19,9 @@ export default function Home() {
     const [intHeroes, setIntHeroes] = useState(null);
     const appContext = useContext(AppContext);
 
-    useEffect(()=>{
-        console.log(appContext)
-    },[])
+    useEffect(() => {
+        console.log(appContext);
+    }, []);
     useEffect(() => {
         const fetchHeroes = async () => {
             try {
@@ -54,18 +54,12 @@ export default function Home() {
     const videoData = "/static/videos/video-bg.webm";
     const heroClasses = ["Strength", "Agility", "Intelligence", "Universal"];
 
-    const teamContainers = Array.from({ length: 5 }, (_, index) => (
-        <HeroDraftedContainer key={index} type={"team"} />
-    ));
+    const teamContainers = Array.from({ length: 5 }, (_, index) => <HeroDraftedContainer key={index} type={"team"} />);
 
-    const enemyContainers = Array.from({ length: 5 }, (_, index) => (
-        <HeroDraftedContainer key={index} type={"enemy"} />
-    ));
+    const enemyContainers = Array.from({ length: 5 }, (_, index) => <HeroDraftedContainer key={index} type={"enemy"} />);
 
-    const banContainers = Array.from({ length: 11 }, (_, index) => (
-        <HeroDraftedContainer key={index} type={"ban"} />
-    ));
-
+    const banContainers = Array.from({ length: 11 }, (_, index) => <HeroDraftedContainer key={index} type={"ban"} />);
+    const alignStyle = { textAlign: "right", fontSize: 12, lineHeight: 1.2 };
     return (
         <main className="main">
             <video autoPlay muted loop className={styles.videoBg}>
@@ -78,9 +72,7 @@ export default function Home() {
                     <ImmortalLogo />
                     <div className="flexRow">{enemyContainers}</div>
                 </div>
-                <div className={`${styles.header} flexRow`}>
-                    {banContainers}
-                </div>
+                <div className={`${styles.header} flexRow`}>{banContainers}</div>
             </header>
 
             <section id={styles.section}>
@@ -103,9 +95,7 @@ export default function Home() {
                                     height={40}
                                     key={heroClass}
                                     heroGridStyle={styles.gridStyle}
-                                    heroGridContainerStyle={
-                                        styles.gridContainerStyle
-                                    }
+                                    heroGridContainerStyle={styles.gridContainerStyle}
                                     imageStyle={styles.gridImgStyle}
                                 />
                             );
@@ -113,12 +103,7 @@ export default function Home() {
                     </div>
                     <div className={styles.heroMiniDetailContainer}>
                         <div className={styles.videoGifContainer}>
-                            <video
-                                autoPlay
-                                muted
-                                loop
-                                className={styles.gifVideo}
-                            >
+                            <video autoPlay muted loop className={styles.gifVideo}>
                                 <source
                                     src="https://cdn.cloudflare.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/ancient_apparition.webm"
                                     type="video/webm"
@@ -127,19 +112,10 @@ export default function Home() {
                         </div>
                         <div className={styles.againstContainer}>
                             <div style={{ flex: 1 }}>
-                                <div className={styles.againstSpan}>
-                                    Good Against
-                                </div>
+                                <div className={styles.againstSpan}>Good Against</div>
                                 <div className={styles.against}>
                                     <div>
-                                        <div
-                                            className={mukta.className}
-                                            style={{
-                                                textAlign: "right",
-                                                fontSize: 12,
-                                                lineHeight: 1.2,
-                                            }}
-                                        >
+                                        <div className={mukta.className} style={alignStyle}>
                                             Core
                                         </div>
                                         {
@@ -148,22 +124,13 @@ export default function Home() {
                                                 width={60}
                                                 height={40}
                                                 heroGridStyle={styles.gridStyle}
-                                                heroGridContainerStyle={
-                                                    styles.gridContainerStyle
-                                                }
+                                                heroGridContainerStyle={styles.gridContainerStyle}
                                                 imageStyle={styles.gridImgStyle}
                                             />
                                         }
                                     </div>
                                     <div>
-                                        <div
-                                            className={mukta.className}
-                                            style={{
-                                                textAlign: "right",
-                                                fontSize: 12,
-                                                lineHeight: 1.2,
-                                            }}
-                                        >
+                                        <div className={mukta.className} style={alignStyle}>
                                             Support
                                         </div>
                                         {
@@ -172,9 +139,7 @@ export default function Home() {
                                                 width={60}
                                                 height={40}
                                                 heroGridStyle={styles.gridStyle}
-                                                heroGridContainerStyle={
-                                                    styles.gridContainerStyle
-                                                }
+                                                heroGridContainerStyle={styles.gridContainerStyle}
                                                 imageStyle={styles.gridImgStyle}
                                             />
                                         }
@@ -182,19 +147,10 @@ export default function Home() {
                                 </div>
                             </div>
                             <div style={{ flex: 1 }}>
-                                <div className={styles.againstSpan}>
-                                    Bad Against
-                                </div>
+                                <div className={styles.againstSpan}>Bad Against</div>
                                 <div className={styles.against}>
                                     <div>
-                                        <div
-                                            className={mukta.className}
-                                            style={{
-                                                textAlign: "right",
-                                                fontSize: 12,
-                                                lineHeight: 1.2,
-                                            }}
-                                        >
+                                        <div className={mukta.className} style={alignStyle}>
                                             Core
                                         </div>
                                         {
@@ -203,22 +159,13 @@ export default function Home() {
                                                 width={60}
                                                 height={40}
                                                 heroGridStyle={styles.gridStyle}
-                                                heroGridContainerStyle={
-                                                    styles.gridContainerStyle
-                                                }
+                                                heroGridContainerStyle={styles.gridContainerStyle}
                                                 imageStyle={styles.gridImgStyle}
                                             />
                                         }
                                     </div>
                                     <div>
-                                        <div
-                                            className={mukta.className}
-                                            style={{
-                                                textAlign: "right",
-                                                fontSize: 12,
-                                                lineHeight: 1.2,
-                                            }}
-                                        >
+                                        <div className={mukta.className} style={alignStyle}>
                                             Support
                                         </div>
                                         {
@@ -227,9 +174,7 @@ export default function Home() {
                                                 width={60}
                                                 height={40}
                                                 heroGridStyle={styles.gridStyle}
-                                                heroGridContainerStyle={
-                                                    styles.gridContainerStyle
-                                                }
+                                                heroGridContainerStyle={styles.gridContainerStyle}
                                                 imageStyle={styles.gridImgStyle}
                                             />
                                         }
@@ -249,49 +194,21 @@ export default function Home() {
                             priority
                             className={styles.heroBGDraftSelect}
                         />
-                        <Image
-                            src={"/static/icons/hero_agility.png"}
-                            width={50}
-                            height={50}
-                            alt="icon"
-                            className={styles.heroClassIcon}
-                        />
+                        <Image src={"/static/icons/hero_agility.png"} width={50} height={50} alt="icon" className={styles.heroClassIcon} />
 
                         <div className={styles.draftSelectContainer}>
-                            <span
-                                className={`${styles.draftSelectBtn} ${styles.selectTeam}`}
-                            >
-                                TEAM
-                            </span>
-                            <span
-                                className={`${styles.draftSelectBtn} ${styles.selectBan}`}
-                            >
-                                BAN
-                            </span>
-                            <span
-                                className={`${styles.draftSelectBtn} ${styles.selectEnemy}`}
-                            >
-                                ENEMY
-                            </span>
+                            <span className={`${styles.draftSelectBtn} ${styles.selectTeam}`}>TEAM</span>
+                            <span className={`${styles.draftSelectBtn} ${styles.selectBan}`}>BAN</span>
+                            <span className={`${styles.draftSelectBtn} ${styles.selectEnemy}`}>ENEMY</span>
                         </div>
                     </div>
                     <div className={`${styles.suggestlist}`}>
                         <div style={{ position: "fixed" }}>CORE</div>
-                        <HeroGridComponent
-                            heroArray={AGAINST_CORE}
-                            width={"100%"}
-                            height={70}
-                            heroGridStyle={styles.suggestStyle}
-                        />
+                        <HeroGridComponent heroArray={AGAINST_CORE} width={"100%"} height={70} heroGridStyle={styles.suggestStyle} />
                     </div>
                     <div className={`${styles.suggestlist}`}>
                         <span style={{ position: "fixed" }}>SUPPORT</span>
-                        <HeroGridComponent
-                            heroArray={AGAINST_SUPPORT}
-                            width={"100%"}
-                            height={70}
-                            heroGridStyle={styles.suggestStyle}
-                        />
+                        <HeroGridComponent heroArray={AGAINST_SUPPORT} width={"100%"} height={70} heroGridStyle={styles.suggestStyle} />
                     </div>
                 </div>
             </section>
