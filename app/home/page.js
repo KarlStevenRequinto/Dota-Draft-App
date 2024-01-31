@@ -4,7 +4,7 @@ import HeroDraftedContainer from "../components/hero-drafted-container";
 import ImmortalLogo from "../components/immortal-logo";
 import styles from "./styles.module.css";
 import HeroGridComponent from "../components/hero-grid-container";
-import { GetGamesPlayed, GetHeroStats } from "../api";
+import { GetHeroesOpenDota, GetMatchUps } from "../api";
 import { AGAINST_CORE, AGAINST_SUPPORT } from "../constants/mock-data";
 import Image from "next/image";
 import { Federo, Mukta_Vaani } from "next/font/google";
@@ -13,50 +13,84 @@ const federo = Federo({ subsets: ["latin"], weight: "400" });
 const mukta = Mukta_Vaani({ subsets: ["latin"], weight: "400" });
 
 export default function Home() {
+    const [isAgainstLoading, setIsAgainstLoading] = useState(false);
     const [strHeroes, setStrHeroes] = useState(null);
     const [agiHeroes, setAgiHeroes] = useState(null);
     const [univHeroes, setUnivHeroes] = useState(null);
     const [intHeroes, setIntHeroes] = useState(null);
     const [gifHeroSource, setGifHeroSource] = useState(null);
     const [selectedHeroClass, setSelectedHeroClass] = useState(null);
+    const [heroList, setHeroList] = useState([]);
+    const [goodAgainstCore, setGoodAgainstCore] = useState([]);
+    const [goodAgainstSupp, setGoodAgainstSupp] = useState([]);
+    const [badAgainstCore, setBadAgainstCore] = useState([]);
+    const [badAgainstSupp, setBadAgainstSupp] = useState([]);
     const appContext = useContext(AppContext);
 
+    const fetchHeroes = async () => {
+        try {
+            const heroesList = await GetHeroesOpenDota();
+            const extractHeroes = heroesList.map((item) => ({
+                id: item.id,
+                name: item.localized_name,
+                shortName: item.name.split("npc_dota_hero_")[1],
+                attribute: item.primary_attr,
+                roles: item.roles,
+            }));
+
+            const strHeroesArray = extractHeroes.filter((hero) => hero.attribute === "str").sort((a, b) => a.name.localeCompare(b.name));
+            const agiHeroesArray = extractHeroes.filter((hero) => hero.attribute === "agi").sort((a, b) => a.name.localeCompare(b.name));
+            const intHeroesArray = extractHeroes.filter((hero) => hero.attribute === "int").sort((a, b) => a.name.localeCompare(b.name));
+            const univHeroesArray = extractHeroes.filter((hero) => hero.attribute === "all").sort((a, b) => a.name.localeCompare(b.name));
+            setHeroList(extractHeroes);
+            setStrHeroes(strHeroesArray);
+            setAgiHeroes(agiHeroesArray);
+            setIntHeroes(intHeroesArray);
+            setUnivHeroes(univHeroesArray);
+        } catch (error) {
+            console.error("Error fetching hero stats:", error);
+        }
+    };
+
     useEffect(() => {
-        const fetchHeroes = async () => {
-            try {
-                const data = await GetHeroStats();
-                const newData = data.slice(1);
-
-                const strHeroesArray = newData
-                    .filter((hero) => hero.stat.AttributePrimary === "str")
-                    .sort((a, b) => a.displayName.localeCompare(b.displayName));
-                const agiHeroesArray = newData
-                    .filter((hero) => hero.stat.AttributePrimary === "agi")
-                    .sort((a, b) => a.displayName.localeCompare(b.displayName));
-                const intHeroesArray = newData
-                    .filter((hero) => hero.stat.AttributePrimary === "int")
-                    .sort((a, b) => a.displayName.localeCompare(b.displayName));
-                const univHeroesArray = newData
-                    .filter((hero) => hero.stat.AttributePrimary === "all")
-                    .sort((a, b) => a.displayName.localeCompare(b.displayName));
-                setStrHeroes(strHeroesArray);
-                setAgiHeroes(agiHeroesArray);
-                setIntHeroes(intHeroesArray);
-                setUnivHeroes(univHeroesArray);
-            } catch (error) {
-                console.error("Error fetching hero stats:", error);
-            }
-        };
-
         fetchHeroes();
     }, []);
+
     const fetchMatches = async (heroId) => {
+        setIsAgainstLoading(true);
         try {
-            const data = await GetGamesPlayed(heroId);
+            const data = await GetMatchUps(heroId);
+            const updatedData = data.map((dataItem) => {
+                const hero = heroList.find((hero) => hero.id === dataItem.hero_id);
+                if (hero) {
+                    return {
+                        ...dataItem,
+                        roles: hero.roles,
+                        shortName: hero.shortName,
+                    };
+                }
+                return dataItem;
+            });
+            // , "Disabler", "Escape", "Initiator", "Nuker","Durable"
+            const filteredCores = updatedData.filter((item) => item.roles.some((role) => ["Carry"].includes(role)));
+            const filteredSupports = updatedData.filter((item) => item.roles.some((role) => ["Support"].includes(role)));
+            const sortedCores = filteredCores.sort((a, b) => b.wins / b.games_played - a.wins / a.games_played);
+            const sortedSupports = filteredSupports.sort((a, b) => b.wins / b.games_played - a.wins / a.games_played);
+
+            const topCores = sortedCores.slice(0, 7);
+            const bottomCores = sortedCores.slice(-7);
+            const topSupports = sortedSupports.slice(0, 7);
+            const bottomSupports = sortedSupports.slice(-7);
+            setGoodAgainstCore(topCores);
+            setBadAgainstCore(bottomCores);
+            setGoodAgainstSupp(topSupports);
+            setBadAgainstSupp(bottomSupports);
+            setIsAgainstLoading(false);
         } catch (error) {
             console.error("Error fetching hero matches:", error);
         }
     };
+
     const videoData = "/static/videos/video-bg.webm";
     const heroClasses = ["Strength", "Agility", "Intelligence", "Universal"];
 
@@ -68,8 +102,9 @@ export default function Home() {
     const alignStyle = { textAlign: "right", fontSize: 12, lineHeight: 1.2 };
 
     const onSelectHero = (hero) => {
+        // console.log(hero);
         appContext.setHeroSelectedId(hero.id);
-        setSelectedHeroClass(hero.stat.AttributePrimary);
+        setSelectedHeroClass(hero.attribute);
         setGifHeroSource(hero.shortName);
         appContext.setHeroSelected({ ...hero });
 
@@ -147,31 +182,31 @@ export default function Home() {
                                         <div className={mukta.className} style={alignStyle}>
                                             Core
                                         </div>
-                                        {
+                                        {isAgainstLoading ? null : (
                                             <HeroGridComponent
-                                                heroArray={AGAINST_CORE}
+                                                heroArray={goodAgainstCore}
                                                 width={60}
                                                 height={40}
                                                 heroGridStyle={styles.gridStyle}
                                                 heroGridContainerStyle={styles.gridContainerStyle}
                                                 imageStyle={styles.gridImgStyle}
                                             />
-                                        }
+                                        )}
                                     </div>
                                     <div>
                                         <div className={mukta.className} style={alignStyle}>
                                             Support
                                         </div>
-                                        {
+                                        {isAgainstLoading ? null : (
                                             <HeroGridComponent
-                                                heroArray={AGAINST_SUPPORT}
+                                                heroArray={goodAgainstSupp}
                                                 width={60}
                                                 height={40}
                                                 heroGridStyle={styles.gridStyle}
                                                 heroGridContainerStyle={styles.gridContainerStyle}
                                                 imageStyle={styles.gridImgStyle}
                                             />
-                                        }
+                                        )}
                                     </div>
                                 </div>
                             </div>
@@ -182,31 +217,31 @@ export default function Home() {
                                         <div className={mukta.className} style={alignStyle}>
                                             Core
                                         </div>
-                                        {
+                                        {isAgainstLoading ? null : (
                                             <HeroGridComponent
-                                                heroArray={AGAINST_CORE}
+                                                heroArray={badAgainstCore}
                                                 width={60}
                                                 height={40}
                                                 heroGridStyle={styles.gridStyle}
                                                 heroGridContainerStyle={styles.gridContainerStyle}
                                                 imageStyle={styles.gridImgStyle}
                                             />
-                                        }
+                                        )}
                                     </div>
                                     <div>
                                         <div className={mukta.className} style={alignStyle}>
                                             Support
                                         </div>
-                                        {
+                                        {isAgainstLoading ? null : (
                                             <HeroGridComponent
-                                                heroArray={AGAINST_SUPPORT}
+                                                heroArray={badAgainstSupp}
                                                 width={60}
                                                 height={40}
                                                 heroGridStyle={styles.gridStyle}
                                                 heroGridContainerStyle={styles.gridContainerStyle}
                                                 imageStyle={styles.gridImgStyle}
                                             />
-                                        }
+                                        )}
                                     </div>
                                 </div>
                             </div>

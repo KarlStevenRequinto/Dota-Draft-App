@@ -26,15 +26,25 @@ async function GetHeroStats() {
     }
 }
 
-async function GetGamesPlayed(heroId) {
+async function GetMatchUps(heroId) {
     try {
-        console.log(heroId)
         const response = await fetch(`https://api.opendota.com/api/heroes/${heroId}/matchups`, requestOptions);
         const data = await response.json();
-        console.log(data);
+        return data;
     } catch (error) {
         console.log("error", error);
         return null;
     }
 }
-export { GetHeroStats,GetGamesPlayed };
+
+async function GetHeroesOpenDota() {
+    try {
+        const response = await fetch("https://api.opendota.com/api/heroes", requestOptions);
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.log("error", error);
+        return null;
+    }
+}
+export { GetHeroStats, GetMatchUps, GetHeroesOpenDota };

@@ -24,7 +24,7 @@ export default function AppProvider({ children }) {
         console.log("RemoveHeroFromDraft");
     };
 
-    console.log("heroSelected in AppProvider:", heroSelectedId ? heroSelectedId : null);
+    // console.log("heroSelected in AppProvider:", heroSelectedId ? heroSelectedId : null);
 
     const value = {
         heroSelectedId,
