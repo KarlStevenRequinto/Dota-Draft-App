@@ -19,6 +19,7 @@ export default function Home() {
     const [univHeroes, setUnivHeroes] = useState(null);
     const [intHeroes, setIntHeroes] = useState(null);
     const [gifHeroSource, setGifHeroSource] = useState(null);
+    const [selectedHero, setSelectedHero] = useState(null);
     const [selectedHeroClass, setSelectedHeroClass] = useState(null);
     const [heroList, setHeroList] = useState([]);
     const [goodAgainstCore, setGoodAgainstCore] = useState([]);
@@ -72,6 +73,7 @@ export default function Home() {
                 return dataItem;
             });
             // , "Disabler", "Escape", "Initiator", "Nuker","Durable"
+            const filterNoRoles = updatedData.sort((a, b) => b.wins / b.games_played - a.wins / a.games_played);
             const filteredCores = updatedData.filter((item) => item.roles.some((role) => ["Carry"].includes(role)));
             const filteredSupports = updatedData.filter((item) => item.roles.some((role) => ["Support"].includes(role)));
             const sortedCores = filteredCores.sort((a, b) => b.wins / b.games_played - a.wins / a.games_played);
@@ -81,6 +83,7 @@ export default function Home() {
             const bottomCores = sortedCores.slice(-7);
             const topSupports = sortedSupports.slice(0, 7);
             const bottomSupports = sortedSupports.slice(-7);
+
             setGoodAgainstCore(topCores);
             setBadAgainstCore(bottomCores);
             setGoodAgainstSupp(topSupports);
@@ -102,7 +105,7 @@ export default function Home() {
     const alignStyle = { textAlign: "right", fontSize: 12, lineHeight: 1.2 };
 
     const onSelectHero = (hero) => {
-        // console.log(hero);
+        setSelectedHero(hero);
         appContext.setHeroSelectedId(hero.id);
         setSelectedHeroClass(hero.attribute);
         setGifHeroSource(hero.shortName);
@@ -111,6 +114,7 @@ export default function Home() {
         fetchMatches(hero.id);
     };
 
+    const onSelectDraft = (hero, draftType) => {appContext.addHeroToDraft(hero, draftType)};
     const iconClass =
         selectedHeroClass === "agi"
             ? "hero_agility"
@@ -179,10 +183,17 @@ export default function Home() {
                                 <div className={styles.againstSpan}>Good Against</div>
                                 <div className={styles.against}>
                                     <div>
-                                        <div className={mukta.className} style={alignStyle}>
-                                            Core
-                                        </div>
-                                        {isAgainstLoading ? null : (
+                                        {isAgainstLoading ? (
+                                            <span>loading placeholder...</span>
+                                        ) : (
+                                            <div className={mukta.className} style={alignStyle}>
+                                                Core
+                                            </div>
+                                        )}
+
+                                        {isAgainstLoading ? (
+                                            <span>loading placeholder...</span>
+                                        ) : (
                                             <HeroGridComponent
                                                 heroArray={goodAgainstCore}
                                                 width={60}
@@ -194,10 +205,16 @@ export default function Home() {
                                         )}
                                     </div>
                                     <div>
-                                        <div className={mukta.className} style={alignStyle}>
-                                            Support
-                                        </div>
-                                        {isAgainstLoading ? null : (
+                                        {isAgainstLoading ? (
+                                            <span>loading placeholder...</span>
+                                        ) : (
+                                            <div className={mukta.className} style={alignStyle}>
+                                                Support
+                                            </div>
+                                        )}
+                                        {isAgainstLoading ? (
+                                            <span>loading placeholder...</span>
+                                        ) : (
                                             <HeroGridComponent
                                                 heroArray={goodAgainstSupp}
                                                 width={60}
@@ -214,10 +231,16 @@ export default function Home() {
                                 <div className={styles.againstSpan}>Bad Against</div>
                                 <div className={styles.against}>
                                     <div>
-                                        <div className={mukta.className} style={alignStyle}>
-                                            Core
-                                        </div>
-                                        {isAgainstLoading ? null : (
+                                        {isAgainstLoading ? (
+                                            <span>loading placeholder...</span>
+                                        ) : (
+                                            <div className={mukta.className} style={alignStyle}>
+                                                Core
+                                            </div>
+                                        )}
+                                        {isAgainstLoading ? (
+                                            <span>loading placeholder...</span>
+                                        ) : (
                                             <HeroGridComponent
                                                 heroArray={badAgainstCore}
                                                 width={60}
@@ -229,10 +252,16 @@ export default function Home() {
                                         )}
                                     </div>
                                     <div>
-                                        <div className={mukta.className} style={alignStyle}>
-                                            Support
-                                        </div>
-                                        {isAgainstLoading ? null : (
+                                        {isAgainstLoading ? (
+                                            <span>loading placeholder...</span>
+                                        ) : (
+                                            <div className={mukta.className} style={alignStyle}>
+                                                Support
+                                            </div>
+                                        )}
+                                        {isAgainstLoading ? (
+                                            <span>loading placeholder...</span>
+                                        ) : (
                                             <HeroGridComponent
                                                 heroArray={badAgainstSupp}
                                                 width={60}
@@ -267,9 +296,24 @@ export default function Home() {
                         ) : null}
 
                         <div className={styles.draftSelectContainer}>
-                            <span className={`${styles.draftSelectBtn} ${styles.selectTeam}`}>TEAM</span>
-                            <span className={`${styles.draftSelectBtn} ${styles.selectBan}`}>BAN</span>
-                            <span className={`${styles.draftSelectBtn} ${styles.selectEnemy}`}>ENEMY</span>
+                            <span
+                                className={`${styles.draftSelectBtn} ${styles.selectTeam}`}
+                                onClick={() => onSelectDraft(selectedHero ? selectedHero : null, "team")}
+                            >
+                                TEAM
+                            </span>
+                            <span
+                                className={`${styles.draftSelectBtn} ${styles.selectBan}`}
+                                onClick={() => onSelectDraft(selectedHero ? selectedHero : null, "ban")}
+                            >
+                                BAN
+                            </span>
+                            <span
+                                className={`${styles.draftSelectBtn} ${styles.selectEnemy}`}
+                                onClick={() => onSelectDraft(selectedHero ? selectedHero : null, "enemy")}
+                            >
+                                ENEMY
+                            </span>
                         </div>
                     </div>
                     <div className={`${styles.suggestlist}`}>
