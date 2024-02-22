@@ -12,7 +12,7 @@ export const AppContext = createContext({
 export default function AppProvider({ children }) {
     const [heroSelected, setHeroSelected] = useState(null);
     const [draftedTeam, setDraftedTeam] = useState(["a", "b", "c", "d", "e"]);
-    const [draftedEnemy, setDraftedEnemy] = useState([]);
+    const [draftedEnemy, setDraftedEnemy] = useState(["a", "b", "c", "d", "e"]);
     const [draftedBans, setDraftedBans] = useState([]);
     const [heroSelectedId, setHeroSelectedId] = useState(null);
 
@@ -28,11 +28,16 @@ export default function AppProvider({ children }) {
             selectedFunction((prevDraftedTeam) => {
                 const updatedDraft = [...prevDraftedTeam];
 
-                // Find the index to replace, starting from the end
                 let replaceIndex = 4;
                 // Check if the hero is not already drafted
                 const isHeroAlreadyDrafted = updatedDraft.some((draftedHero) => draftedHero && draftedHero.id === hero.id);
+                const isHeroInDraftedTeam = draftedTeam.some((draftedHero) => draftedHero && draftedHero.id === hero.id);
+                const isHeroInDraftedEnemy = draftedEnemy.some((draftedHero) => draftedHero && draftedHero.id === hero.id);
 
+                if (isHeroInDraftedTeam || isHeroInDraftedEnemy) {
+                    console.log(`${hero.name} is already drafted elsewhere and cannot be added again.`);
+                    return updatedDraft;
+                }
                 if (!isHeroAlreadyDrafted) {
                     if (updatedDraft[4] === "e") {
                         updatedDraft[replaceIndex] = hero;
@@ -49,7 +54,7 @@ export default function AppProvider({ children }) {
                         replaceIndex = 0;
                         updatedDraft[replaceIndex] = hero;
                     } else if (updatedDraft[0] != "a") {
-                        console.log(`team is full`);
+                        return updatedDraft;
                     }
 
                     console.log(updatedDraft);

@@ -26,9 +26,10 @@ export default function Home() {
     const [goodAgainstSupp, setGoodAgainstSupp] = useState([]);
     const [badAgainstCore, setBadAgainstCore] = useState([]);
     const [badAgainstSupp, setBadAgainstSupp] = useState([]);
-    const [teamSelectIndex,setTeamSelectIndex] = useState(4);
+
     const appContext = useContext(AppContext);
     const draftedTeam = appContext.draftedTeam;
+    const draftedEnemy = appContext.draftedEnemy;
 
     const fetchHeroes = async () => {
         try {
@@ -138,12 +139,16 @@ export default function Home() {
             <header>
                 <div className={`${styles.header} flexRow`}>
                     <div className="flexRow">
-                        {draftedTeam.map((hero,index) => (
-                            <HeroDraftedContainer key={index} type={"team"} hero={hero}/>
+                        {draftedTeam.map((hero, index) => (
+                            <HeroDraftedContainer key={index} type={"team"} hero={hero} />
                         ))}
                     </div>
                     <ImmortalLogo />
-                    <div className="flexRow">{enemyContainers}</div>
+                    <div className="flexRow">
+                        {draftedEnemy.map((hero, index) => (
+                            <HeroDraftedContainer key={index} type={"enemy"} hero={hero} />
+                        ))}
+                    </div>
                 </div>
                 <div className={`${styles.header} flexRow`}>{banContainers}</div>
             </header>
