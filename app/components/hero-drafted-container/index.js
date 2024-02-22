@@ -3,7 +3,8 @@ import React from "react";
 import styles from "./styles.module.css";
 import Image from "next/image";
 
-const HeroDraftedContainer = ({ type }) => {
+const HeroDraftedContainer = ({ type, hero }) => {
+    const shortName = hero ? hero.shortName : null
     const getTypeBackground = (type) => {
         let background;
         if (type === "team") {
@@ -16,41 +17,24 @@ const HeroDraftedContainer = ({ type }) => {
         return background;
     };
     return (
-        <div
-            className={`${styles.container} ${
-                type === "team"
-                    ? styles.team
-                    : type === "enemy"
-                    ? styles.enemy
-                    : ""
-            }`}
-        >
+        <div className={`${styles.container} ${type === "team" ? styles.team : type === "enemy" ? styles.enemy : ""}`}>
             <div className={styles.outerShadowContainer}>
                 <div className={styles.imageContainer}>
                     <div className={styles.imageWrapper}>
-                        {/* <Image
-                            // src should be a prop
-                            src="/static/images/antimage.png"
-                            alt="where's the hero image bro?"
-                            width={90}
-                            height={65}
-                            className={`${styles.image} ${
-                                type === "team"
-                                    ? styles.teamImage
-                                    : type === "enemy"
-                                    ? styles.teamEnemy
-                                    : ""
-                            }`}
-                        /> */}
+                        {shortName ? (
+                            <Image
+                                // src should be a prop
+                                src={`https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/${shortName}.png`}
+                                alt="where's the hero image bro?"
+                                width={90}
+                                height={65}
+                                className={`${styles.image} ${type === "team" ? styles.teamImage : type === "enemy" ? styles.teamEnemy : ""}`}
+                            />
+                        ) : null}
                     </div>
                 </div>
             </div>
-            <div
-                className={styles.draftColorContainer}
-                style={
-                    type ? { backgroundImage: getTypeBackground(type) } : null
-                }
-            ></div>
+            <div className={styles.draftColorContainer} style={type ? { backgroundImage: getTypeBackground(type) } : null}></div>
         </div>
     );
 };

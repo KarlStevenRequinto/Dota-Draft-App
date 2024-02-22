@@ -11,7 +11,7 @@ export const AppContext = createContext({
 
 export default function AppProvider({ children }) {
     const [heroSelected, setHeroSelected] = useState(null);
-    const [draftedTeam, setDraftedTeam] = useState([]);
+    const [draftedTeam, setDraftedTeam] = useState(["a", "b", "c", "d", "e"]);
     const [draftedEnemy, setDraftedEnemy] = useState([]);
     const [draftedBans, setDraftedBans] = useState([]);
     const [heroSelectedId, setHeroSelectedId] = useState(null);
@@ -24,30 +24,41 @@ export default function AppProvider({ children }) {
         };
 
         const selectedFunction = draftTypeFunctions[draftType];
-
         if (selectedFunction) {
-            const isHeroAlreadyDrafted = [...draftedTeam, ...draftedBans, ...draftedEnemy].some((draftedHero) => draftedHero.id === hero.id);
+            selectedFunction((prevDraftedTeam) => {
+                const updatedDraft = [...prevDraftedTeam];
 
-            if (!isHeroAlreadyDrafted) {
-                selectedFunction((prevDraftedTeam) => {
-                    if (draftType === "team" && prevDraftedTeam.length >= 5) {
-                        console.log(`Maximum limit reached for draftedTeam. Cannot add ${hero.name}.`);
-                        return prevDraftedTeam;
-                    } else if (draftType === "enemy" && prevDraftedTeam.length >= 5) {
-                        console.log(`Maximum limit reached for draftedEnemy. Cannot add ${hero.name}.`);
-                        return prevDraftedTeam;
-                    } else if (draftType === "ban" && prevDraftedTeam.length >= 11) {
-                        console.log(`Maximum limit reached for ${draftType}. Cannot add ${hero.name}.`);
-                        return prevDraftedTeam;
+                // Find the index to replace, starting from the end
+                let replaceIndex = 4;
+                // Check if the hero is not already drafted
+                const isHeroAlreadyDrafted = updatedDraft.some((draftedHero) => draftedHero && draftedHero.id === hero.id);
+
+                if (!isHeroAlreadyDrafted) {
+                    if (updatedDraft[4] === "e") {
+                        updatedDraft[replaceIndex] = hero;
+                    } else if (updatedDraft[3] === "d") {
+                        replaceIndex = 3;
+                        updatedDraft[replaceIndex] = hero;
+                    } else if (updatedDraft[2] === "c") {
+                        replaceIndex = 2;
+                        updatedDraft[replaceIndex] = hero;
+                    } else if (updatedDraft[1] === "b") {
+                        replaceIndex = 1;
+                        updatedDraft[replaceIndex] = hero;
+                    } else if (updatedDraft[0] === "a") {
+                        replaceIndex = 0;
+                        updatedDraft[replaceIndex] = hero;
+                    } else if (updatedDraft[0] != "a") {
+                        console.log(`team is full`);
                     }
 
-                    const updatedDraft = [...prevDraftedTeam, hero];
                     console.log(updatedDraft);
-                    return updatedDraft;
-                });
-            } else {
-                console.log(`${hero.name} is already drafted and cannot be added again.`);
-            }
+                } else {
+                    console.log(`${hero.name} is already drafted and cannot be added again.`);
+                }
+
+                return updatedDraft;
+            });
         }
     };
 

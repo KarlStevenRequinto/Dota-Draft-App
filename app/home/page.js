@@ -26,7 +26,9 @@ export default function Home() {
     const [goodAgainstSupp, setGoodAgainstSupp] = useState([]);
     const [badAgainstCore, setBadAgainstCore] = useState([]);
     const [badAgainstSupp, setBadAgainstSupp] = useState([]);
+    const [teamSelectIndex,setTeamSelectIndex] = useState(4);
     const appContext = useContext(AppContext);
+    const draftedTeam = appContext.draftedTeam;
 
     const fetchHeroes = async () => {
         try {
@@ -97,7 +99,7 @@ export default function Home() {
     const videoData = "/static/videos/video-bg.webm";
     const heroClasses = ["Strength", "Agility", "Intelligence", "Universal"];
 
-    const teamContainers = Array.from({ length: 5 }, (_, index) => <HeroDraftedContainer key={index} type={"team"} />);
+    // const teamContainers = Array.from({ length: 5 }, (_, index) => <HeroDraftedContainer key={index} type={"team"} />);
 
     const enemyContainers = Array.from({ length: 5 }, (_, index) => <HeroDraftedContainer key={index} type={"enemy"} />);
 
@@ -114,7 +116,9 @@ export default function Home() {
         fetchMatches(hero.id);
     };
 
-    const onSelectDraft = (hero, draftType) => {appContext.addHeroToDraft(hero, draftType)};
+    const onSelectDraft = (hero, draftType) => {
+        appContext.addHeroToDraft(hero, draftType);
+    };
     const iconClass =
         selectedHeroClass === "agi"
             ? "hero_agility"
@@ -133,7 +137,11 @@ export default function Home() {
 
             <header>
                 <div className={`${styles.header} flexRow`}>
-                    <div className="flexRow">{teamContainers}</div>
+                    <div className="flexRow">
+                        {draftedTeam.map((hero,index) => (
+                            <HeroDraftedContainer key={index} type={"team"} hero={hero}/>
+                        ))}
+                    </div>
                     <ImmortalLogo />
                     <div className="flexRow">{enemyContainers}</div>
                 </div>
