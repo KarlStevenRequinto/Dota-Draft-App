@@ -30,6 +30,7 @@ export default function Home() {
     const appContext = useContext(AppContext);
     const draftedTeam = appContext.draftedTeam;
     const draftedEnemy = appContext.draftedEnemy;
+    const draftedBans = appContext.draftedBans;
 
     const fetchHeroes = async () => {
         try {
@@ -150,7 +151,11 @@ export default function Home() {
                         ))}
                     </div>
                 </div>
-                <div className={`${styles.header} flexRow`}>{banContainers}</div>
+                <div className={`${styles.header} flexRow`}>
+                    {draftedBans.map((hero, index) => (
+                        <HeroDraftedContainer key={index} type={"ban"} hero={hero} />
+                    ))}
+                </div>
             </header>
 
             <section id={styles.section}>
