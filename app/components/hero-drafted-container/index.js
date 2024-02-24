@@ -3,8 +3,8 @@ import React from "react";
 import styles from "./styles.module.css";
 import Image from "next/image";
 
-const HeroDraftedContainer = ({ type, hero }) => {
-    const shortName = hero ? hero.shortName : null
+const HeroDraftedContainer = ({ type, hero, onClick }) => {
+    const shortName = hero ? hero.shortName : null;
     const getTypeBackground = (type) => {
         let background;
         if (type === "team") {
@@ -17,7 +17,7 @@ const HeroDraftedContainer = ({ type, hero }) => {
         return background;
     };
     return (
-        <div className={`${styles.container} ${type === "team" ? styles.team : type === "enemy" ? styles.enemy : ""}`}>
+        <div className={`${styles.container} ${type === "team" ? styles.team : type === "enemy" ? styles.enemy : ""}`} onClick={onClick}>
             <div className={styles.outerShadowContainer}>
                 <div className={styles.imageContainer}>
                     <div className={styles.imageWrapper}>

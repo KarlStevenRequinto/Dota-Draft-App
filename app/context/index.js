@@ -51,17 +51,15 @@ export default function AppProvider({ children }) {
 
                         if (replaceIndex !== -1) {
                             updatedDraft[replaceIndex] = hero;
-                            console.log(updatedDraft);
                         } else {
                             return updatedDraft;
                         }
-                        console.log(updatedDraft);
                     } else {
                         console.log(`${hero.name} is already drafted and cannot be added again.`);
                     }
                 } else if (draftType === "ban") {
                     if (!isHeroAlreadyDrafted) {
-                        const slots = "abcdefghij";
+                        const slots = "abcdefghijk";
                         let replaceIndex = -1;
                         for (let i = 0; i < slots.length; i++) {
                             if (updatedDraft[i] === slots[i]) {
@@ -95,19 +93,33 @@ export default function AppProvider({ children }) {
                         } else {
                             return updatedDraft;
                         }
-                        console.log(updatedDraft);
                     } else {
                         console.log(`${hero.name} is already drafted and cannot be added again.`);
                     }
                 }
-
+                console.log(updatedDraft);
                 return updatedDraft;
             });
         }
     };
 
-    const removeHeroFromDraft = (hero, heroId) => {
-        console.log("RemoveHeroFromDraft");
+    const removeHeroFromDraft = (hero, index, draftType) => {
+        console.log(hero, index, draftType);
+        const draftArray =
+            draftType === "team" || draftType === "enemy" ? ["a", "b", "c", "d", "e"] : ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k"];
+        const clonedDraft =
+            draftType === "ban" ? [...draftedBans] : draftType === "team" ? [...draftedTeam] : draftType === "enemy" ? [...draftedEnemy] : [];
+        if (index >= 0 && index < clonedDraft.length) {
+            clonedDraft[index] = String.fromCharCode(97 + index);
+        }
+        if (draftType === "ban") {
+            setDraftedBans(clonedDraft);
+        } else if (draftType === "team") {
+            setDraftedTeam(clonedDraft);
+        } else if (draftType === "enemy") {
+            setDraftedEnemy(clonedDraft);
+        }
+        console.log(clonedDraft, draftArray);
     };
 
     const value = {

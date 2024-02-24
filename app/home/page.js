@@ -100,12 +100,6 @@ export default function Home() {
 
     const videoData = "/static/videos/video-bg.webm";
     const heroClasses = ["Strength", "Agility", "Intelligence", "Universal"];
-
-    // const teamContainers = Array.from({ length: 5 }, (_, index) => <HeroDraftedContainer key={index} type={"team"} />);
-
-    const enemyContainers = Array.from({ length: 5 }, (_, index) => <HeroDraftedContainer key={index} type={"enemy"} />);
-
-    const banContainers = Array.from({ length: 11 }, (_, index) => <HeroDraftedContainer key={index} type={"ban"} />);
     const alignStyle = { textAlign: "right", fontSize: 12, lineHeight: 1.2 };
 
     const onSelectHero = (hero) => {
@@ -120,6 +114,10 @@ export default function Home() {
 
     const onSelectDraft = (hero, draftType) => {
         appContext.addHeroToDraft(hero, draftType);
+    };
+
+    const onDeleteDraft = (hero, index, draftType) => {
+        appContext.removeHeroFromDraft(hero, index, draftType);
     };
     const iconClass =
         selectedHeroClass === "agi"
@@ -141,19 +139,40 @@ export default function Home() {
                 <div className={`${styles.header} flexRow`}>
                     <div className="flexRow">
                         {draftedTeam.map((hero, index) => (
-                            <HeroDraftedContainer key={index} type={"team"} hero={hero} />
+                            <HeroDraftedContainer
+                                key={index}
+                                type={"team"}
+                                hero={hero}
+                                onClick={() => {
+                                    onDeleteDraft(hero, index, "team");
+                                }}
+                            />
                         ))}
                     </div>
                     <ImmortalLogo />
                     <div className="flexRow">
                         {draftedEnemy.map((hero, index) => (
-                            <HeroDraftedContainer key={index} type={"enemy"} hero={hero} />
+                            <HeroDraftedContainer
+                                key={index}
+                                type={"enemy"}
+                                hero={hero}
+                                onClick={() => {
+                                    onDeleteDraft(hero, index, "enemy");
+                                }}
+                            />
                         ))}
                     </div>
                 </div>
                 <div className={`${styles.header} flexRow`}>
                     {draftedBans.map((hero, index) => (
-                        <HeroDraftedContainer key={index} type={"ban"} hero={hero} />
+                        <HeroDraftedContainer
+                            key={index}
+                            type={"ban"}
+                            hero={hero}
+                            onClick={() => {
+                                onDeleteDraft(hero, index, "ban");
+                            }}
+                        />
                     ))}
                 </div>
             </header>
