@@ -26,6 +26,7 @@ export default function Home() {
     const [goodAgainstSupp, setGoodAgainstSupp] = useState([]);
     const [badAgainstCore, setBadAgainstCore] = useState([]);
     const [badAgainstSupp, setBadAgainstSupp] = useState([]);
+    const [suggestHeroList, setSuggestHeroList] = useState([]);
 
     const appContext = useContext(AppContext);
     const draftedTeam = appContext.draftedTeam;
@@ -61,6 +62,31 @@ export default function Home() {
         fetchHeroes();
     }, []);
 
+    const fetchMatchups = async (heroId) => {
+        try {
+            const data = await GetMatchUps(heroId);
+            const updatedData = data.map((dataItem) => {
+                const hero = heroList.find((hero) => hero.id === dataItem.hero_id);
+                if (hero) {
+                    return {
+                        ...dataItem,
+                        roles: hero.roles,
+                        shortName: hero.shortName,
+                        winrate: +(dataItem.wins / dataItem.games_played).toFixed(4),
+                    };
+                }
+                return dataItem;
+            });
+            // sorted winrate from lowest to highest
+            const filterNoRoles = updatedData.sort((a, b) => a.winrate - b.winrate);
+
+            const suggestList = filterNoRoles;
+            console.log(suggestList);
+            setSuggestHeroList(suggestList);
+        } catch (error) {
+            console.error("Error fetching hero matches:", error);
+        }
+    };
     const fetchMatches = async (heroId) => {
         setIsAgainstLoading(true);
         try {
@@ -77,7 +103,6 @@ export default function Home() {
                 return dataItem;
             });
             // , "Disabler", "Escape", "Initiator", "Nuker","Durable"
-            const filterNoRoles = updatedData.sort((a, b) => b.wins / b.games_played - a.wins / a.games_played);
             const filteredCores = updatedData.filter((item) => item.roles.some((role) => ["Carry"].includes(role)));
             const filteredSupports = updatedData.filter((item) => item.roles.some((role) => ["Support"].includes(role)));
             const sortedCores = filteredCores.sort((a, b) => b.wins / b.games_played - a.wins / a.games_played);
@@ -108,12 +133,16 @@ export default function Home() {
         setSelectedHeroClass(hero.attribute);
         setGifHeroSource(hero.shortName);
         appContext.setHeroSelected({ ...hero });
-
         fetchMatches(hero.id);
     };
 
     const onSelectDraft = (hero, draftType) => {
+        console.log("onSelectDraft");
+        GetMatchUps(hero);
         appContext.addHeroToDraft(hero, draftType);
+        if (draftType === "enemy") {
+            fetchMatchups(hero.id);
+        }
     };
 
     const onDeleteDraft = (hero, index, draftType) => {
@@ -355,11 +384,11 @@ export default function Home() {
                     </div>
                     <div className={`${styles.suggestlist}`}>
                         <div style={{ position: "fixed" }}>CORE</div>
-                        <HeroGridComponent heroArray={AGAINST_CORE} width={"100%"} height={70} heroGridStyle={styles.suggestStyle} />
+                        <HeroGridComponent heroArray={suggestHeroList} width={"100%"} height={70} heroGridStyle={styles.suggestStyle} />
                     </div>
                     <div className={`${styles.suggestlist}`}>
                         <span style={{ position: "fixed" }}>SUPPORT</span>
-                        <HeroGridComponent heroArray={AGAINST_SUPPORT} width={"100%"} height={70} heroGridStyle={styles.suggestStyle} />
+                        <HeroGridComponent heroArray={suggestHeroList} width={"100%"} height={70} heroGridStyle={styles.suggestStyle} />
                     </div>
                 </div>
             </section>

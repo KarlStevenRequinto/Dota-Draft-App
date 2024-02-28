@@ -104,9 +104,6 @@ export default function AppProvider({ children }) {
     };
 
     const removeHeroFromDraft = (hero, index, draftType) => {
-        console.log(hero, index, draftType);
-        const draftArray =
-            draftType === "team" || draftType === "enemy" ? ["a", "b", "c", "d", "e"] : ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k"];
         const clonedDraft =
             draftType === "ban" ? [...draftedBans] : draftType === "team" ? [...draftedTeam] : draftType === "enemy" ? [...draftedEnemy] : [];
         if (index >= 0 && index < clonedDraft.length) {
@@ -119,7 +116,7 @@ export default function AppProvider({ children }) {
         } else if (draftType === "enemy") {
             setDraftedEnemy(clonedDraft);
         }
-        console.log(clonedDraft, draftArray);
+        // console.log(clonedDraft, draftArray);
     };
 
     const value = {
