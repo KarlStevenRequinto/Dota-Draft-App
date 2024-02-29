@@ -27,7 +27,6 @@ async function GetHeroStats() {
 }
 
 async function GetMatchUps(heroId) {
-    console.log("GetMatchUps")
     try {
         const response = await fetch(`https://api.opendota.com/api/heroes/${heroId}/matchups`, requestOptions);
         const data = await response.json();

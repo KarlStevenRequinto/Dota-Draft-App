@@ -27,6 +27,7 @@ export default function Home() {
     const [badAgainstCore, setBadAgainstCore] = useState([]);
     const [badAgainstSupp, setBadAgainstSupp] = useState([]);
     const [suggestHeroList, setSuggestHeroList] = useState([]);
+    const [selectedEnemyList, setSelectedEnemyList] = useState([]);
 
     const appContext = useContext(AppContext);
     const draftedTeam = appContext.draftedTeam;
@@ -58,18 +59,15 @@ export default function Home() {
         }
     };
 
-    useEffect(() => {
-        fetchHeroes();
-    }, []);
-
     const fetchMatchups = async (heroId) => {
+        console.log(heroId);
         try {
             const data = await GetMatchUps(heroId);
             const updatedData = data.map((dataItem) => {
                 const hero = heroList.find((hero) => hero.id === dataItem.hero_id);
                 if (hero) {
                     return {
-                        ...dataItem,
+                        id: dataItem.hero_id,
                         roles: hero.roles,
                         shortName: hero.shortName,
                         winrate: +(dataItem.wins / dataItem.games_played).toFixed(4),
@@ -77,12 +75,9 @@ export default function Home() {
                 }
                 return dataItem;
             });
-            // sorted winrate from lowest to highest
-            const filterNoRoles = updatedData.sort((a, b) => a.winrate - b.winrate);
-
-            const suggestList = filterNoRoles;
-            console.log(suggestList);
-            setSuggestHeroList(suggestList);
+            const filteredData = updatedData.sort((a, b) => a.id - b.id);
+            setSelectedEnemyList((prevArray) => [...prevArray, filteredData]);
+            // console.log(filterNames);
         } catch (error) {
             console.error("Error fetching hero matches:", error);
         }
@@ -137,7 +132,6 @@ export default function Home() {
     };
 
     const onSelectDraft = (hero, draftType) => {
-        console.log("onSelectDraft");
         GetMatchUps(hero);
         appContext.addHeroToDraft(hero, draftType);
         if (draftType === "enemy") {
@@ -158,6 +152,38 @@ export default function Home() {
             : selectedHeroClass === "all"
             ? "hero_universal"
             : null;
+    useEffect(() => {
+        fetchHeroes();
+    }, []);
+
+    useEffect(() => {
+        const idWinrateMap = {};
+
+        selectedEnemyList.forEach((heroArray) => {
+            // Iterate through each hero in the array
+            heroArray.forEach((hero) => {
+                // Check if the id already exists in the map
+                if (idWinrateMap.hasOwnProperty(hero.id)) {
+                    // If exists, update the winrate and increment the count
+                    idWinrateMap[hero.id].winrate += hero.winrate;
+                    idWinrateMap[hero.id].count += 1;
+                } else {
+                    // If doesn't exist, add a new entry with the current winrate and count of 1
+                    idWinrateMap[hero.id] = { winrate: hero.winrate, count: 1, shortName: hero.shortName };
+                }
+            });
+        });
+        const newArray = Object.entries(idWinrateMap).map(([id, { winrate, shortName }]) => ({
+            id: parseInt(id),
+            shortName,
+            winrate: winrate / selectedEnemyList.length,
+        }));
+        const sortedNewArray = newArray.sort((a, b) => a.winrate - b.winrate);
+        setSuggestHeroList(sortedNewArray)
+        console.log(newArray);
+        console.log(selectedEnemyList);
+    }, [selectedEnemyList]);
+
     return (
         <main className="main">
             <video autoPlay muted loop className={styles.videoBg}>
@@ -384,11 +410,11 @@ export default function Home() {
                     </div>
                     <div className={`${styles.suggestlist}`}>
                         <div style={{ position: "fixed" }}>CORE</div>
-                        <HeroGridComponent heroArray={suggestHeroList} width={"100%"} height={70} heroGridStyle={styles.suggestStyle} />
+                        <HeroGridComponent heroArray={suggestHeroList} width={"100%"} height={70} heroGridStyle={styles.suggestStyle} onSelectHero={()=>{}}/>
                     </div>
                     <div className={`${styles.suggestlist}`}>
                         <span style={{ position: "fixed" }}>SUPPORT</span>
-                        <HeroGridComponent heroArray={suggestHeroList} width={"100%"} height={70} heroGridStyle={styles.suggestStyle} />
+                        <HeroGridComponent heroArray={suggestHeroList} width={"100%"} height={70} heroGridStyle={styles.suggestStyle} onSelectHero={()=>{}}/>
                     </div>
                 </div>
             </section>

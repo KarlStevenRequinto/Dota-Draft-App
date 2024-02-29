@@ -89,7 +89,7 @@ export default function AppProvider({ children }) {
 
                         if (replaceIndex !== -1) {
                             updatedDraft[replaceIndex] = hero;
-                            console.log(updatedDraft);
+                            // console.log(updatedDraft);
                         } else {
                             return updatedDraft;
                         }
@@ -97,7 +97,7 @@ export default function AppProvider({ children }) {
                         console.log(`${hero.name} is already drafted and cannot be added again.`);
                     }
                 }
-                console.log(updatedDraft);
+                // console.log(updatedDraft);
                 return updatedDraft;
             });
         }
@@ -116,7 +116,6 @@ export default function AppProvider({ children }) {
         } else if (draftType === "enemy") {
             setDraftedEnemy(clonedDraft);
         }
-        // console.log(clonedDraft, draftArray);
     };
 
     const value = {
