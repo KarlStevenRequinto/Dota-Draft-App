@@ -26,7 +26,8 @@ export default function Home() {
     const [goodAgainstSupp, setGoodAgainstSupp] = useState([]);
     const [badAgainstCore, setBadAgainstCore] = useState([]);
     const [badAgainstSupp, setBadAgainstSupp] = useState([]);
-    const [suggestHeroList, setSuggestHeroList] = useState([]);
+    const [suggestCoreList, setSuggestCoreList] = useState([]);
+    const [suggestSupportList, setSuggestSupportList] = useState([]);
     const [selectedEnemyList, setSelectedEnemyList] = useState([]);
 
     const appContext = useContext(AppContext);
@@ -61,6 +62,16 @@ export default function Home() {
 
     const fetchMatchups = async (heroId) => {
         console.log(heroId);
+        const isHeroAlreadyDrafted =
+            draftedTeam.some((hero) => hero.id === heroId) ||
+            draftedEnemy.some((hero) => hero.id === heroId) ||
+            draftedBans.some((hero) => hero.id === heroId);
+
+        if (isHeroAlreadyDrafted) {
+            console.log(`Hero with ID ${heroId} is already drafted. Skipping.`);
+            return;
+        }
+
         try {
             const data = await GetMatchUps(heroId);
             const updatedData = data.map((dataItem) => {
@@ -141,6 +152,14 @@ export default function Home() {
 
     const onDeleteDraft = (hero, index, draftType) => {
         appContext.removeHeroFromDraft(hero, index, draftType);
+        if (draftType === "enemy") {
+            // Delete the item at the specified index from selectedEnemyList
+            setSelectedEnemyList((prevList) => {
+                const newList = [...prevList];
+                newList.splice(index, 1);
+                return newList;
+            });
+        }
     };
     const iconClass =
         selectedHeroClass === "agi"
@@ -152,37 +171,58 @@ export default function Home() {
             : selectedHeroClass === "all"
             ? "hero_universal"
             : null;
+
     useEffect(() => {
         fetchHeroes();
     }, []);
 
     useEffect(() => {
         const idWinrateMap = {};
+        const supportArray = [];
 
         selectedEnemyList.forEach((heroArray) => {
-            // Iterate through each hero in the array
             heroArray.forEach((hero) => {
-                // Check if the id already exists in the map
-                if (idWinrateMap.hasOwnProperty(hero.id)) {
-                    // If exists, update the winrate and increment the count
-                    idWinrateMap[hero.id].winrate += hero.winrate;
-                    idWinrateMap[hero.id].count += 1;
-                } else {
-                    // If doesn't exist, add a new entry with the current winrate and count of 1
-                    idWinrateMap[hero.id] = { winrate: hero.winrate, count: 1, shortName: hero.shortName };
+                const isHeroDrafted = draftedEnemy.some((draftedHero) => draftedHero.id === hero.id);
+
+                if (!isHeroDrafted) {
+                    if (idWinrateMap.hasOwnProperty(hero.id)) {
+                        idWinrateMap[hero.id].winrate += hero.winrate;
+                        idWinrateMap[hero.id].count += 1;
+                    } else {
+                        idWinrateMap[hero.id] = { winrate: hero.winrate, count: 1, shortName: hero.shortName, roles: hero.roles };
+                    }
+                }
+
+                if (hero.roles.includes("Support")) {
+                    supportArray.push({ id: hero.id, shortName: hero.shortName, winrate: hero.winrate, roles: hero.roles });
                 }
             });
         });
-        const newArray = Object.entries(idWinrateMap).map(([id, { winrate, shortName }]) => ({
-            id: parseInt(id),
-            shortName,
-            winrate: winrate / selectedEnemyList.length,
-        }));
-        const sortedNewArray = newArray.sort((a, b) => a.winrate - b.winrate);
-        setSuggestHeroList(sortedNewArray)
+
+        const newArray = Object.entries(idWinrateMap)
+            .map(([id, { winrate, shortName, roles }]) => {
+                // Exclude heroes with the role "Support" from newArray
+                if (!roles.includes("Support")) {
+                    return {
+                        id: parseInt(id),
+                        shortName,
+                        winrate: winrate / selectedEnemyList.length,
+                        roles,
+                    };
+                }
+                // Return null for heroes with the role "Support"
+                return null;
+            })
+            .filter((hero) => hero !== null);
+        const sortedSupports = supportArray.sort((a, b) => a.winrate - b.winrate);
+        const sortedCores = newArray.sort((a, b) => a.winrate - b.winrate);
+
+        setSuggestCoreList(sortedCores);
+        setSuggestSupportList(sortedSupports);
         console.log(newArray);
         console.log(selectedEnemyList);
-    }, [selectedEnemyList]);
+        console.log(draftedEnemy);
+    }, [selectedEnemyList, draftedEnemy]);
 
     return (
         <main className="main">
@@ -410,11 +450,23 @@ export default function Home() {
                     </div>
                     <div className={`${styles.suggestlist}`}>
                         <div style={{ position: "fixed" }}>CORE</div>
-                        <HeroGridComponent heroArray={suggestHeroList} width={"100%"} height={70} heroGridStyle={styles.suggestStyle} onSelectHero={()=>{}}/>
+                        <HeroGridComponent
+                            heroArray={suggestCoreList}
+                            width={"100%"}
+                            height={70}
+                            heroGridStyle={styles.suggestStyle}
+                            onSelectHero={() => {}}
+                        />
                     </div>
                     <div className={`${styles.suggestlist}`}>
                         <span style={{ position: "fixed" }}>SUPPORT</span>
-                        <HeroGridComponent heroArray={suggestHeroList} width={"100%"} height={70} heroGridStyle={styles.suggestStyle} onSelectHero={()=>{}}/>
+                        <HeroGridComponent
+                            heroArray={suggestSupportList}
+                            width={"100%"}
+                            height={70}
+                            heroGridStyle={styles.suggestStyle}
+                            onSelectHero={() => {}}
+                        />
                     </div>
                 </div>
             </section>
