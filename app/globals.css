@@ -18,10 +18,7 @@
     margin: 0;
 }
 
-html,
-body {
-    overflow-x: hidden;
-}
+html,body {min-width: 1200px;}
 
 a {
     color: inherit;

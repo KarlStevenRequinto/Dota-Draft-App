@@ -29,10 +29,8 @@
     gap: 20px;
     height: 75vh;
     margin-top: 20px;
-    /* background-color: green; */
 }
 .heroGridContainer {
-    /* background-color: rgba(255, 0, 0, 0.233); */
     flex-direction: column;
     flex: 3;
 }
@@ -41,12 +39,10 @@
     display: grid;
     grid-template-rows: 1fr 3fr;
     grid-template-columns: 1fr 1fr;
-    background-color: rgba(0, 0, 255, 0.192);
     flex: 1;
 }
 
 .heroClassGridContainer {
-    /* background-color: rgba(137, 43, 226, 0.329); */
     display: grid;
     column-gap: 8px;
     grid-template-columns: repeat(2, 1fr);
@@ -61,11 +57,10 @@
     position: relative;
     height: 200px;
     grid-column: span 2;
-    /* background-color: rgba(0, 255, 0, 0.349); */
+    background-color: rgba(104, 104, 104, 0.555);
 }
 .draftSelectContainer {
     position: absolute;
-    /* background-color: rgba(255, 0, 0, 0.158); */
     width: 100%;
     bottom: 0;
 }
@@ -91,11 +86,7 @@
     box-shadow: 0 0 15px var(--green-02);
 }
 .selectBan {
-    background: linear-gradient(
-        to top,
-        var(--neutral-02),
-        var(--locked-gray-01)
-    );
+    background: linear-gradient(to top, var(--neutral-02), var(--locked-gray-01));
 }
 .selectBan:hover {
     box-shadow: 0 0 15px var(--neutral-02);
@@ -110,13 +101,11 @@
 }
 
 .againstContainer {
-    /* background-color: rgba(255, 255, 0, 0.178); */
     flex-direction: column;
     justify-content: space-between;
     flex: 1;
 }
 .against {
-    /* background-color: rgba(0, 195, 255, 0.349); */
     margin-bottom: 10px;
     gap: 50px;
 }
@@ -136,7 +125,7 @@
 .suggestlist {
     position: relative;
     flex-direction: column;
-    overflow: scroll;
+
     overflow-x: hidden;
     transition: background-color 1s ease;
 }
@@ -147,7 +136,7 @@
 .suggestlist::-webkit-scrollbar-thumb {
     display: none;
     background-color: rgba(255, 255, 255, 0.733);
-    transition:display 2s ease;
+    transition: display 2s ease;
     border-radius: 9px;
 }
 .suggestlist::-webkit-scrollbar {
@@ -157,16 +146,13 @@
 
 .suggestStyle {
     height: 72px;
-    border-bottom: 2px solid rgba(0, 60, 255, 0.418);
 }
 .heroClassIcon {
     position: absolute;
     top: 8px;
     left: 8px;
 }
-.core {
-    background-color: rgba(255, 192, 203, 0.671);
-}
+
 .gridContainerStyle {
     flex: 1;
     flex-wrap: wrap;
@@ -196,6 +182,14 @@
 .againstSpan {
     margin-top: 4px;
     margin-left: 4px;
-
     color: black;
+}
+
+.rolelabel {
+    position: sticky;
+    top: 0;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    background-color: rgba(104, 104, 104, 0.555);
 }

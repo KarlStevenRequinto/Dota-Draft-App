@@ -443,7 +443,7 @@ export default function Home() {
                         </div>
                     </div>
                     <div className={`${styles.suggestlist}`}>
-                        <div style={{ position: "fixed" }}>CORE</div>
+                        <div className={styles.rolelabel}>CORE</div>
                         <HeroGridComponent
                             heroArray={suggestCoreList}
                             width={"100%"}
@@ -452,8 +452,9 @@ export default function Home() {
                             onSelectHero={() => {}}
                         />
                     </div>
+
                     <div className={`${styles.suggestlist}`}>
-                        <span style={{ position: "fixed" }}>SUPPORT</span>
+                        <div className={styles.rolelabel}>SUPPORT</div>
                         <HeroGridComponent
                             heroArray={suggestSupportList}
                             width={"100%"}
