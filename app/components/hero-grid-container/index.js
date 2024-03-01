@@ -9,11 +9,12 @@ const HeroGridComponent = ({
     heroArray,
     width,
     height,
-    onSelectHero
+    onSelectHero,
+    headerTextClassName,
 }) => {
     return (
         <div>
-            <div>{heroClassName}</div>
+            <div className={headerTextClassName}>{heroClassName}</div>
 
             {heroArray ? (
                 <div className={heroGridContainerStyle}>

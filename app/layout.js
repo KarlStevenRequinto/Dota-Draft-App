@@ -1,8 +1,5 @@
-import { Goldman } from "next/font/google";
 import AppProvider from "./context";
 import "./globals.css";
-
-const goldman = Goldman({ subsets: ["latin"], weight: "400" });
 
 export const metadata = {
     title: "Dota Draft App",
@@ -12,7 +9,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
     return (
         <html lang="en" suppressHydrationWarning={true}>
-            <body className={goldman.className}>
+            <body>
                 <AppProvider>{children}</AppProvider>
             </body>
         </html>

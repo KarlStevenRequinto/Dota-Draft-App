@@ -7,10 +7,11 @@ import HeroGridComponent from "../components/hero-grid-container";
 import { GetHeroesOpenDota, GetMatchUps } from "../api";
 import { AGAINST_CORE, AGAINST_SUPPORT } from "../constants/mock-data";
 import Image from "next/image";
-import { Federo, Mukta_Vaani } from "next/font/google";
+import { Federo, Mukta_Vaani,Goldman } from "next/font/google";
 import { AppContext } from "../context";
 const federo = Federo({ subsets: ["latin"], weight: "400" });
 const mukta = Mukta_Vaani({ subsets: ["latin"], weight: "400" });
+const goldman = Goldman({ subsets: ["latin"], weight: "400" });
 
 export default function Home() {
     const [isAgainstLoading, setIsAgainstLoading] = useState(false);
@@ -289,6 +290,7 @@ export default function Home() {
                                     heroGridContainerStyle={styles.gridContainerStyle}
                                     imageStyle={styles.gridImgStyle}
                                     onSelectHero={onSelectHero}
+                                    headerTextClassName={goldman.className}
                                 />
                             );
                         })}
@@ -306,7 +308,7 @@ export default function Home() {
                         </div>
                         <div className={styles.againstContainer}>
                             <div style={{ flex: 1 }}>
-                                <div className={styles.againstSpan}>Good Against</div>
+                                <div className={`${styles.againstSpan} ${goldman.className}`}>Good Against</div>
                                 <div className={styles.against}>
                                     <div>
                                         {isAgainstLoading ? (
@@ -354,7 +356,7 @@ export default function Home() {
                                 </div>
                             </div>
                             <div style={{ flex: 1 }}>
-                                <div className={styles.againstSpan}>Bad Against</div>
+                                <div className={`${styles.againstSpan} ${goldman.className}`}>Bad Against</div>
                                 <div className={styles.against}>
                                     <div>
                                         {isAgainstLoading ? (
@@ -423,19 +425,19 @@ export default function Home() {
 
                         <div className={styles.draftSelectContainer}>
                             <span
-                                className={`${styles.draftSelectBtn} ${styles.selectTeam}`}
+                                className={`${styles.draftSelectBtn} ${styles.selectTeam} ${goldman.className}`}
                                 onClick={() => onSelectDraft(selectedHero ? selectedHero : null, "team")}
                             >
                                 TEAM
                             </span>
                             <span
-                                className={`${styles.draftSelectBtn} ${styles.selectBan}`}
+                                className={`${styles.draftSelectBtn} ${styles.selectBan} ${goldman.className}`}
                                 onClick={() => onSelectDraft(selectedHero ? selectedHero : null, "ban")}
                             >
                                 BAN
                             </span>
                             <span
-                                className={`${styles.draftSelectBtn} ${styles.selectEnemy}`}
+                                className={`${styles.draftSelectBtn} ${styles.selectEnemy} ${goldman.className}`}
                                 onClick={() => onSelectDraft(selectedHero ? selectedHero : null, "enemy")}
                             >
                                 ENEMY
@@ -443,7 +445,7 @@ export default function Home() {
                         </div>
                     </div>
                     <div className={`${styles.suggestlist}`}>
-                        <div className={styles.rolelabel}>CORE</div>
+                        <div className={`${styles.rolelabel} ${mukta.className}`}>CORE</div>
                         <HeroGridComponent
                             heroArray={suggestCoreList}
                             width={"100%"}
@@ -454,7 +456,7 @@ export default function Home() {
                     </div>
 
                     <div className={`${styles.suggestlist}`}>
-                        <div className={styles.rolelabel}>SUPPORT</div>
+                        <div className={`${styles.rolelabel} ${mukta.className}`}>SUPPORT</div>
                         <HeroGridComponent
                             heroArray={suggestSupportList}
                             width={"100%"}
