@@ -11,11 +11,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
     return (
-        <html
-            lang="en"
-            suppressHydrationWarning={true}
-            style={{ backgroundColor: "red" }}
-        >
+        <html lang="en" suppressHydrationWarning={true}>
             <body className={goldman.className}>
                 <AppProvider>{children}</AppProvider>
             </body>

@@ -61,7 +61,6 @@ export default function Home() {
     };
 
     const fetchMatchups = async (heroId) => {
-        console.log(heroId);
         const isHeroAlreadyDrafted =
             draftedTeam.some((hero) => hero.id === heroId) ||
             draftedEnemy.some((hero) => hero.id === heroId) ||
@@ -88,7 +87,6 @@ export default function Home() {
             });
             const filteredData = updatedData.sort((a, b) => a.id - b.id);
             setSelectedEnemyList((prevArray) => [...prevArray, filteredData]);
-            // console.log(filterNames);
         } catch (error) {
             console.error("Error fetching hero matches:", error);
         }
@@ -153,7 +151,6 @@ export default function Home() {
     const onDeleteDraft = (hero, index, draftType) => {
         appContext.removeHeroFromDraft(hero, index, draftType);
         if (draftType === "enemy") {
-            // Delete the item at the specified index from selectedEnemyList
             setSelectedEnemyList((prevList) => {
                 const newList = [...prevList];
                 newList.splice(index, 1);
@@ -219,9 +216,6 @@ export default function Home() {
 
         setSuggestCoreList(sortedCores);
         setSuggestSupportList(sortedSupports);
-        console.log(newArray);
-        console.log(selectedEnemyList);
-        console.log(draftedEnemy);
     }, [selectedEnemyList, draftedEnemy]);
 
     return (

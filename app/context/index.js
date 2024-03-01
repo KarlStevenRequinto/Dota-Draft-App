@@ -89,7 +89,6 @@ export default function AppProvider({ children }) {
 
                         if (replaceIndex !== -1) {
                             updatedDraft[replaceIndex] = hero;
-                            // console.log(updatedDraft);
                         } else {
                             return updatedDraft;
                         }
@@ -97,7 +96,6 @@ export default function AppProvider({ children }) {
                         console.log(`${hero.name} is already drafted and cannot be added again.`);
                     }
                 }
-                // console.log(updatedDraft);
                 return updatedDraft;
             });
         }
