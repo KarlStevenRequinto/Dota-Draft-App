@@ -20,7 +20,7 @@ const nextConfig = {
   images: {
     domains: ['cdn.cloudflare.steamstatic.com'], // Add your image domain here
   },
-
+  output: 'export',
   async generateStaticParams() {
     // Define your static paths here
     return {
