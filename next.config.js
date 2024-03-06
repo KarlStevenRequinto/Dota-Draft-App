@@ -17,17 +17,9 @@ const nextConfig = {
             },
         ];
     },
-    distDir: "dist",
     images: {
         domains: ["cdn.cloudflare.steamstatic.com"], // Add your image domain here
     },
-    // async generateStaticParams() {
-    //     // Define your static paths here
-    //     return {
-    //         "/": { page: "/" },
-    //         // Add other paths as needed
-    //     };
-    // },
 };
 
 module.exports = nextConfig;
