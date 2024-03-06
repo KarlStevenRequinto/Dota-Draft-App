@@ -20,6 +20,16 @@ const nextConfig = {
   images: {
     domains: ['cdn.cloudflare.steamstatic.com'], // Add your image domain here
   },
+
+  exportPathMap: async function (
+    defaultPathMap,
+    { dev, dir, outDir, distDir, buildId }
+  ) {
+    return {
+      '/': { page: '/' },
+      // Add other paths as needed
+    };
+  },
 }
 
 module.exports = nextConfig
