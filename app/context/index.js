@@ -34,7 +34,7 @@ export default function AppProvider({ children }) {
                 const isHeroInDraftedBan = draftedBans.some((draftedHero) => draftedHero && draftedHero.id === hero.id);
 
                 if (isHeroInDraftedTeam || isHeroInDraftedEnemy || isHeroInDraftedBan) {
-                    console.log(`${hero.name} is already drafted elsewhere and cannot be added again.`);
+                    // console.log(`${hero.name} is already drafted elsewhere and cannot be added again.`);
                     return updatedDraft;
                 }
 
@@ -55,7 +55,7 @@ export default function AppProvider({ children }) {
                             return updatedDraft;
                         }
                     } else {
-                        console.log(`${hero.name} is already drafted and cannot be added again.`);
+                        // console.log(`${hero.name} is already drafted and cannot be added again.`);
                     }
                 } else if (draftType === "ban") {
                     if (!isHeroAlreadyDrafted) {
@@ -73,7 +73,7 @@ export default function AppProvider({ children }) {
                             return updatedDraft;
                         }
                     } else {
-                        console.log(`${hero.name} is already drafted and cannot be added again.`);
+                        // console.log(`${hero.name} is already drafted and cannot be added again.`);
                     }
                 } else if (draftType === "enemy") {
                     if (!isHeroAlreadyDrafted) {
@@ -93,7 +93,7 @@ export default function AppProvider({ children }) {
                             return updatedDraft;
                         }
                     } else {
-                        console.log(`${hero.name} is already drafted and cannot be added again.`);
+                        // console.log(`${hero.name} is already drafted and cannot be added again.`);
                     }
                 }
                 return updatedDraft;

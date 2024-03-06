@@ -7,8 +7,10 @@ import HeroGridComponent from "../components/hero-grid-container";
 import { GetHeroesOpenDota, GetMatchUps } from "../api";
 import { AGAINST_CORE, AGAINST_SUPPORT } from "../constants/mock-data";
 import Image from "next/image";
-import { Federo, Mukta_Vaani,Goldman } from "next/font/google";
+import { Federo, Mukta_Vaani, Goldman } from "next/font/google";
 import { AppContext } from "../context";
+import { getGifPosition } from "../utils";
+
 const federo = Federo({ subsets: ["latin"], weight: "400" });
 const mukta = Mukta_Vaani({ subsets: ["latin"], weight: "400" });
 const goldman = Goldman({ subsets: ["latin"], weight: "400" });
@@ -68,7 +70,7 @@ export default function Home() {
             draftedBans.some((hero) => hero.id === heroId);
 
         if (isHeroAlreadyDrafted) {
-            console.log(`Hero with ID ${heroId} is already drafted. Skipping.`);
+            // console.log(`Hero with ID ${heroId} is already drafted. Skipping.`);
             return;
         }
 
@@ -133,6 +135,7 @@ export default function Home() {
     const alignStyle = { textAlign: "right", fontSize: 12, lineHeight: 1.2 };
 
     const onSelectHero = (hero) => {
+        console.log(hero.shortName);
         setSelectedHero(hero);
         appContext.setHeroSelectedId(hero.id);
         setSelectedHeroClass(hero.attribute);
@@ -169,6 +172,7 @@ export default function Home() {
             : selectedHeroClass === "all"
             ? "hero_universal"
             : null;
+    const objectPositionGif = getGifPosition(gifHeroSource)
 
     useEffect(() => {
         fetchHeroes();
@@ -298,7 +302,14 @@ export default function Home() {
                     <div className={styles.heroMiniDetailContainer}>
                         <div className={styles.videoGifContainer}>
                             {gifHeroSource ? (
-                                <video autoPlay muted loop className={styles.gifVideo} key={gifHeroSource}>
+                                <video
+                                    autoPlay
+                                    muted
+                                    loop
+                                    className={styles.gifVideo}
+                                    key={gifHeroSource}
+                                    style={{ objectPosition: objectPositionGif }}
+                                >
                                     <source
                                         src={`https://cdn.cloudflare.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/${gifHeroSource}.webm`}
                                         type="video/webm"
@@ -312,45 +323,48 @@ export default function Home() {
                                 <div className={styles.against}>
                                     <div>
                                         {isAgainstLoading ? (
-                                            <span>loading placeholder...</span>
+                                            <span>Loading... please wait.</span>
                                         ) : (
-                                            <div className={mukta.className} style={alignStyle}>
-                                                Core
-                                            </div>
-                                        )}
-
-                                        {isAgainstLoading ? (
-                                            <span>loading placeholder...</span>
-                                        ) : (
-                                            <HeroGridComponent
-                                                heroArray={goodAgainstCore}
-                                                width={60}
-                                                height={40}
-                                                heroGridStyle={styles.gridStyle}
-                                                heroGridContainerStyle={styles.gridContainerStyle}
-                                                imageStyle={styles.gridImgStyle}
-                                            />
+                                            <>
+                                                {goodAgainstCore.length > 0 && (
+                                                    <div className={mukta.className} style={alignStyle}>
+                                                        Core
+                                                    </div>
+                                                )}
+                                                {goodAgainstCore.length > 0 && (
+                                                    <HeroGridComponent
+                                                        heroArray={goodAgainstCore}
+                                                        width={60}
+                                                        height={40}
+                                                        heroGridStyle={styles.gridStyle}
+                                                        heroGridContainerStyle={styles.gridContainerStyle}
+                                                        imageStyle={styles.gridImgStyle}
+                                                    />
+                                                )}
+                                            </>
                                         )}
                                     </div>
                                     <div>
                                         {isAgainstLoading ? (
-                                            <span>loading placeholder...</span>
+                                            <span>Loading... please wait.</span>
                                         ) : (
-                                            <div className={mukta.className} style={alignStyle}>
-                                                Support
-                                            </div>
-                                        )}
-                                        {isAgainstLoading ? (
-                                            <span>loading placeholder...</span>
-                                        ) : (
-                                            <HeroGridComponent
-                                                heroArray={goodAgainstSupp}
-                                                width={60}
-                                                height={40}
-                                                heroGridStyle={styles.gridStyle}
-                                                heroGridContainerStyle={styles.gridContainerStyle}
-                                                imageStyle={styles.gridImgStyle}
-                                            />
+                                            <>
+                                                {goodAgainstSupp.length > 0 && (
+                                                    <div className={mukta.className} style={alignStyle}>
+                                                        Support
+                                                    </div>
+                                                )}
+                                                {goodAgainstSupp.length > 0 && (
+                                                    <HeroGridComponent
+                                                        heroArray={goodAgainstSupp}
+                                                        width={60}
+                                                        height={40}
+                                                        heroGridStyle={styles.gridStyle}
+                                                        heroGridContainerStyle={styles.gridContainerStyle}
+                                                        imageStyle={styles.gridImgStyle}
+                                                    />
+                                                )}
+                                            </>
                                         )}
                                     </div>
                                 </div>
@@ -360,44 +374,49 @@ export default function Home() {
                                 <div className={styles.against}>
                                     <div>
                                         {isAgainstLoading ? (
-                                            <span>loading placeholder...</span>
+                                            <span>Loading... please wait.</span>
                                         ) : (
-                                            <div className={mukta.className} style={alignStyle}>
-                                                Core
-                                            </div>
-                                        )}
-                                        {isAgainstLoading ? (
-                                            <span>loading placeholder...</span>
-                                        ) : (
-                                            <HeroGridComponent
-                                                heroArray={badAgainstCore}
-                                                width={60}
-                                                height={40}
-                                                heroGridStyle={styles.gridStyle}
-                                                heroGridContainerStyle={styles.gridContainerStyle}
-                                                imageStyle={styles.gridImgStyle}
-                                            />
+                                            <>
+                                                {badAgainstCore.length > 0 && (
+                                                    <div className={mukta.className} style={alignStyle}>
+                                                        Core
+                                                    </div>
+                                                )}
+                                                {badAgainstCore.length > 0 && (
+                                                    <HeroGridComponent
+                                                        heroArray={badAgainstCore}
+                                                        width={60}
+                                                        height={40}
+                                                        heroGridStyle={styles.gridStyle}
+                                                        heroGridContainerStyle={styles.gridContainerStyle}
+                                                        imageStyle={styles.gridImgStyle}
+                                                    />
+                                                )}
+                                            </>
                                         )}
                                     </div>
+
                                     <div>
                                         {isAgainstLoading ? (
-                                            <span>loading placeholder...</span>
+                                            <span>Loading... please wait.</span>
                                         ) : (
-                                            <div className={mukta.className} style={alignStyle}>
-                                                Support
-                                            </div>
-                                        )}
-                                        {isAgainstLoading ? (
-                                            <span>loading placeholder...</span>
-                                        ) : (
-                                            <HeroGridComponent
-                                                heroArray={badAgainstSupp}
-                                                width={60}
-                                                height={40}
-                                                heroGridStyle={styles.gridStyle}
-                                                heroGridContainerStyle={styles.gridContainerStyle}
-                                                imageStyle={styles.gridImgStyle}
-                                            />
+                                            <>
+                                                {badAgainstSupp.length > 0 && (
+                                                    <div className={mukta.className} style={alignStyle}>
+                                                        Support
+                                                    </div>
+                                                )}
+                                                {badAgainstSupp.length > 0 && (
+                                                    <HeroGridComponent
+                                                        heroArray={badAgainstSupp}
+                                                        width={60}
+                                                        height={40}
+                                                        heroGridStyle={styles.gridStyle}
+                                                        heroGridContainerStyle={styles.gridContainerStyle}
+                                                        imageStyle={styles.gridImgStyle}
+                                                    />
+                                                )}
+                                            </>
                                         )}
                                     </div>
                                 </div>

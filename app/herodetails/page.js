@@ -12,7 +12,6 @@ const HeroDetails = () => {
             try {
                 const data = await GetHeroStats();
                 const newData = data.slice(1);
-                console.log(newData);
                 setHeroStats(newData);
             } catch (error) {
                 console.error("Error fetching hero stats:", error);
@@ -27,7 +26,6 @@ const HeroDetails = () => {
             {heroStats ? (
                 <ul>
                     {heroStats.map((hero, index) => {
-                        console.log(heroStats.length); // Log each hero object
                         return (
                             <span key={index}>
                                 {
